@@ -1,1 +1,105 @@
 @import "tailwindcss";
+
+/*
+  Токени з макета Figma (файл ZHUKOV, фрейм home 1920 px).
+  Розміри плавно стискаються від 1920 до 375 px через clamp().
+  Верхня межа кожного значення дорівнює числу з макета.
+*/
+@theme {
+  --font-sans: var(--font-inter-tight), ui-sans-serif, system-ui, sans-serif;
+
+  --color-ink: #0a0b0a;
+  --color-page: #eaebf2;
+  --color-plate: #ffffff;
+  --color-accent: #ff6f00;
+  --color-field: #464746;
+  --color-muted: #888888;
+
+  --radius-sm: 0.5rem;
+  --radius-md: 1rem;
+  --radius-pill: 6.25rem;
+
+  /* 80 px у макеті */
+  --text-display: clamp(2.5rem, 1.8932rem + 2.589vw, 5rem);
+  --text-display--line-height: 1.1;
+  --text-display--letter-spacing: -0.03em;
+  /* 56 */
+  --text-h2: clamp(2rem, 1.6359rem + 1.5534vw, 3.5rem);
+  --text-h2--line-height: 1.1;
+  --text-h2--letter-spacing: -0.03em;
+  /* 48 */
+  --text-h3: clamp(1.75rem, 1.4466rem + 1.2945vw, 3rem);
+  --text-h3--line-height: 1.2;
+  --text-h3--letter-spacing: -0.01em;
+  /* 40 */
+  --text-h4: clamp(1.625rem, 1.4126rem + 0.9061vw, 2.5rem);
+  --text-h4--line-height: 1.2;
+  --text-h4--letter-spacing: -0.01em;
+  /* 32 */
+  --text-h5: clamp(1.375rem, 1.2233rem + 0.6472vw, 2rem);
+  --text-h5--line-height: 1.2;
+  --text-h5--letter-spacing: -0.01em;
+  /* 24 */
+  --text-lg: clamp(1.125rem, 1.034rem + 0.3883vw, 1.5rem);
+  --text-lg--line-height: 1.2;
+  --text-lg--letter-spacing: -0.01em;
+  /* 20 */
+  --text-md: clamp(1.0625rem, 1.017rem + 0.1942vw, 1.25rem);
+  --text-md--line-height: 1.2;
+  --text-md--letter-spacing: -0.01em;
+  /* 16 */
+  --text-base: clamp(0.9375rem, 0.9223rem + 0.0647vw, 1rem);
+  --text-base--line-height: 1.2;
+  --text-base--letter-spacing: -0.01em;
+  /* 14 */
+  --text-sm: clamp(0.8125rem, 0.7973rem + 0.0647vw, 0.875rem);
+  --text-sm--line-height: 1.2;
+  --text-sm--letter-spacing: -0.01em;
+
+  /* Бічний відступ сторінки: 72 px на 1920, 16 px на 375 */
+  --spacing-gutter: clamp(1rem, 0.1505rem + 3.6246vw, 4.5rem);
+  /* Ширина макета, ширше сторінка не розтягується */
+  --container-site: 120rem;
+
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 75rem;
+}
+
+@layer base {
+  html {
+    background: var(--color-page);
+    color: var(--color-ink);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Рамка фокуса лише з клавіатури й зовні елемента */
+  :focus {
+    outline: none;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
