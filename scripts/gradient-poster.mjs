@@ -1,13 +1,13 @@
-// Малює нерухомий кадр градієнта hero у крихітний PNG і вбудовує його в код.
+// Малює нерухомий кадр градієнта у крихітний PNG і вбудовує його в код.
 // Цю картинку браузер показує одразу, ще до запуску анімації.
 //
 //   node scripts/gradient-poster.mjs
 //
-// Запускати після зміни кольорів у src/components/sections/hero/mesh.ts.
+// Запускати після зміни кольорів у src/components/gradient/mesh.ts.
 
 import { writeFileSync } from "node:fs";
 import { encodePng } from "./png.mjs";
-import { sampleMesh } from "../src/components/sections/hero/mesh.ts";
+import { sampleMesh } from "../src/components/gradient/mesh.ts";
 
 const WIDTH = 32;
 const HEIGHT = 18;
@@ -24,7 +24,7 @@ for (let y = 0; y < HEIGHT; y++) {
 }
 
 const base64 = encodePng(WIDTH, HEIGHT, rgb).toString("base64");
-const target = new URL("../src/components/sections/hero/gradient-poster.ts", import.meta.url);
+const target = new URL("../src/components/gradient/gradient-poster.ts", import.meta.url);
 
 writeFileSync(
   target,

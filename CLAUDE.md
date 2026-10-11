@@ -32,7 +32,8 @@ npm run check      # lint + типи + збірка, запускати пере
 | Анкета | `src/components/form/`, `src/lib/lead-schema.ts` |
 | Відправка заявки в Telegram | `src/app/actions/lead.ts`, `src/lib/telegram.ts` |
 | Фото | `public/images/` |
-| Фон і світло на фото в першій секції | `src/components/sections/hero/`, див. `docs/CONTENT.md` |
+| Живий помаранчевий фон (перший екран, оффер, фінал) | `src/components/gradient/`, див. `docs/CONTENT.md` |
+| Світло на фото в першій секції | `src/components/sections/hero/RelitPortrait.tsx` |
 | Службові скрипти (карта рельєфу, картинка фону) | `scripts/` |
 
 Покрокові приклади типових правок: `docs/CONTENT.md`.

@@ -128,76 +128,22 @@ export function LiveGradient({ className }: { className?: string }) {
     const canvas = canvasRef.current;
     if (!canvas || prefersReducedMotion()) return;
 
-    const gl = canvas.getContext("webgl2", {
-      alpha: false,
-      antialias: false,
-      powerPreference: "low-power",
-    });
-    if (!gl) return;
-
-    let program: WebGLProgram;
-    try {
-      program = createProgram(gl, VERTEX, FRAGMENT);
-    } catch {
-      return;
-    }
-    gl.useProgram(program);
-
-    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
-    const aPosition = gl.getAttribLocation(program, "aPosition");
-    gl.enableVertexAttribArray(aPosition);
-    gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, false, 0, 0);
-
-    gl.uniform3fv(gl.getUniformLocation(program, "uRamp"), RAMP.flatMap(linear));
-    gl.uniform3fv(gl.getUniformLocation(program, "uCorner"), linear(CORNER));
-    const uResolution = gl.getUniformLocation(program, "uResolution");
-    const uCursor = gl.getUniformLocation(program, "uCursor");
-    const uPresence = gl.getUniformLocation(program, "uPresence");
-    const uTime = gl.getUniformLocation(program, "uTime");
-
-    const resize = () => {
-      const width = Math.max(2, Math.round(canvas.clientWidth * RESOLUTION));
-      const height = Math.max(2, Math.round(canvas.clientHeight * RESOLUTION));
-      if (canvas.width !== width || canvas.height !== height) {
-        canvas.width = width;
-        canvas.height = height;
-        gl.viewport(0, 0, width, height);
-      }
-    };
-    const resizeObserver = new ResizeObserver(resize);
-    resizeObserver.observe(canvas);
-    resize();
-
-    const { pointer, stop: stopPointer } = trackPointer(canvas);
-    const cursor = { x: 0.5, y: 0.4, presence: 0 };
-    let shown = false;
-
-    const stopLoop = startLoop(canvas, (time, delta) => {
-      const rect = canvas.getBoundingClientRect();
-      const ease = 1 - Math.exp(-delta * CURSOR_EASE);
-      if (pointer.active) {
-        cursor.x += ((pointer.x - rect.left) / rect.width - cursor.x) * ease;
-        cursor.y += ((pointer.y - rect.top) / rect.height - cursor.y) * ease;
-      }
-      cursor.presence += ((pointer.active ? 1 : 0) - cursor.presence) * ease;
-
-      gl.uniform2f(uResolution, canvas.width, canvas.height);
-      gl.uniform2f(uCursor, cursor.x, cursor.y);
-      gl.uniform1f(uPresence, cursor.presence);
-      gl.uniform1f(uTime, time * SPEED);
-      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-
-      if (!shown) {
-        shown = true;
-        canvas.style.opacity = "1";
-      }
-    });
+    let cleanup = () => {};
+    // Фон запускається, лише коли секція наближається до екрана:
+    // так сторінка не витрачає сили на те, чого ще не видно
+    const starter = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        starter.disconnect();
+        cleanup = start(canvas);
+      },
+      { rootMargin: "50% 0px" },
+    );
+    starter.observe(canvas);
 
     return () => {
-      stopLoop();
-      stopPointer();
-      resizeObserver.disconnect();
+      starter.disconnect();
+      cleanup();
     };
   }, []);
 
@@ -209,4 +155,78 @@ export function LiveGradient({ className }: { className?: string }) {
       style={{ opacity: 0, transition: "opacity 1.4s ease" }}
     />
   );
+}
+
+function start(canvas: HTMLCanvasElement): () => void {
+  const gl = canvas.getContext("webgl2", {
+    alpha: false,
+    antialias: false,
+    powerPreference: "low-power",
+  });
+  if (!gl) return () => {};
+
+  let program: WebGLProgram;
+  try {
+    program = createProgram(gl, VERTEX, FRAGMENT);
+  } catch {
+    return () => {};
+  }
+  gl.useProgram(program);
+
+  gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+  const aPosition = gl.getAttribLocation(program, "aPosition");
+  gl.enableVertexAttribArray(aPosition);
+  gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, false, 0, 0);
+
+  gl.uniform3fv(gl.getUniformLocation(program, "uRamp"), RAMP.flatMap(linear));
+  gl.uniform3fv(gl.getUniformLocation(program, "uCorner"), linear(CORNER));
+  const uResolution = gl.getUniformLocation(program, "uResolution");
+  const uCursor = gl.getUniformLocation(program, "uCursor");
+  const uPresence = gl.getUniformLocation(program, "uPresence");
+  const uTime = gl.getUniformLocation(program, "uTime");
+
+  const resize = () => {
+    const width = Math.max(2, Math.round(canvas.clientWidth * RESOLUTION));
+    const height = Math.max(2, Math.round(canvas.clientHeight * RESOLUTION));
+    if (canvas.width !== width || canvas.height !== height) {
+      canvas.width = width;
+      canvas.height = height;
+      gl.viewport(0, 0, width, height);
+    }
+  };
+  const resizeObserver = new ResizeObserver(resize);
+  resizeObserver.observe(canvas);
+  resize();
+
+  const { pointer, stop: stopPointer } = trackPointer(canvas);
+  const cursor = { x: 0.5, y: 0.4, presence: 0 };
+  let shown = false;
+
+  const stopLoop = startLoop(canvas, (time, delta) => {
+    const rect = canvas.getBoundingClientRect();
+    const ease = 1 - Math.exp(-delta * CURSOR_EASE);
+    if (pointer.active) {
+      cursor.x += ((pointer.x - rect.left) / rect.width - cursor.x) * ease;
+      cursor.y += ((pointer.y - rect.top) / rect.height - cursor.y) * ease;
+    }
+    cursor.presence += ((pointer.active ? 1 : 0) - cursor.presence) * ease;
+
+    gl.uniform2f(uResolution, canvas.width, canvas.height);
+    gl.uniform2f(uCursor, cursor.x, cursor.y);
+    gl.uniform1f(uPresence, cursor.presence);
+    gl.uniform1f(uTime, time * SPEED);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+
+    if (!shown) {
+      shown = true;
+      canvas.style.opacity = "1";
+    }
+  });
+
+  return () => {
+    stopLoop();
+    stopPointer();
+    resizeObserver.disconnect();
+  };
 }

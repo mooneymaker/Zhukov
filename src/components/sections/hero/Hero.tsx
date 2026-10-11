@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import { GradientBackdrop } from "@/components/gradient/GradientBackdrop";
 import { CountUp } from "@/components/motion/CountUp";
 import { RevealWords } from "@/components/motion/RevealWords";
 import { LeadCard } from "@/components/ui/LeadCard";
@@ -6,8 +7,6 @@ import { Logo } from "@/components/ui/Logo";
 import { getHome, getSite } from "@/lib/content";
 import portrait from "../../../../public/images/hero-portrait.png";
 import portraitNormal from "../../../../public/images/hero-portrait-normal.png";
-import { gradientPoster } from "./gradient-poster";
-import { LiveGradient } from "./LiveGradient";
 import { RelitPortrait } from "./RelitPortrait";
 
 // Карта нормалей іде через оптимізатор зображень: з PNG на 0,9 МБ виходить
@@ -34,13 +33,7 @@ export async function Hero() {
 
   return (
     <section data-pointer-zone className="relative isolate overflow-hidden bg-accent text-ink">
-      {/* Фон: одразу нерухома картинка, поверх неї проявляється живий градієнт */}
-      <div
-        className="absolute inset-0 -z-10 bg-[length:100%_100%]"
-        style={{ backgroundImage: `url(${gradientPoster})` }}
-      >
-        <LiveGradient className="block h-full w-full" />
-      </div>
+      <GradientBackdrop />
 
       <div className="relative mx-auto flex max-w-site flex-col px-gutter py-gutter lg:h-svh lg:min-h-[42rem]">
         <div className="relative z-10 animate-rise self-start" style={delay(AT.logo)}>
