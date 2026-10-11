@@ -54,13 +54,14 @@ export async function About() {
         </div>
       </InView>
 
-      {/* Портрет: на компʼютері заходить під текст ліворуч, як у макеті */}
-      <div className="relative -mx-gutter aspect-[1130/1024] lg:mx-0 lg:-ml-[21.375rem] lg:h-full lg:shrink-0">
+      {/* Портрет: на компʼютері заходить під текст ліворуч, як у макеті;
+          на телефоні й планшеті стоїть у білій рамці */}
+      <div className="relative max-lg:aspect-[4/3] max-lg:overflow-hidden max-lg:rounded-md max-lg:bg-plate md:max-lg:aspect-[16/9] lg:-ml-[21.375rem] lg:aspect-[1130/1024] lg:h-full lg:shrink-0">
         <Image
           src={portrait}
           alt={about.portraitAlt}
           sizes="(min-width: 75rem) 110svh, 100vw"
-          className="size-full object-cover"
+          className="size-full object-cover object-top"
         />
       </div>
 

@@ -35,18 +35,18 @@ export default async function ThanksPage() {
           </p>
         </div>
 
-        <div className="pointer-events-none relative mt-6 aspect-[1471/1280] w-full animate-[rise_1.4s_var(--ease-out-expo)_both] md:-mt-44 md:ml-auto md:w-[72%] lg:absolute lg:bottom-0 lg:left-[62.2%] lg:mt-0 lg:ml-0 lg:h-[92.6%] lg:max-h-[min(52.1vw,62.5rem)] lg:w-auto lg:-translate-x-1/2 lg:translate-y-[9.2%]">
+        <div className="pointer-events-none relative w-full animate-[rise_1.4s_var(--ease-out-expo)_both] max-lg:order-last max-lg:mt-6 max-lg:aspect-[4/3] max-lg:overflow-hidden max-lg:rounded-md max-lg:bg-plate/20 md:max-lg:aspect-[16/9] lg:absolute lg:bottom-0 lg:left-[62.2%] lg:aspect-[1471/1280] lg:h-[92.6%] lg:max-h-[min(52.1vw,62.5rem)] lg:w-auto lg:-translate-x-1/2 lg:translate-y-[9.2%]">
           <Image
             src={portrait}
             alt={thanks.portraitAlt}
-            sizes="(min-width: 75rem) 60vw, (min-width: 48rem) 72vw, 100vw"
+            sizes="(min-width: 75rem) 60vw, 100vw"
             preload
-            className="size-full"
+            className="size-full object-cover object-top"
           />
         </div>
 
         <div
-          className="relative z-10 -mt-[24%] flex animate-rise flex-col gap-2 rounded-md bg-page p-2 md:-mt-[14%] lg:mt-0 lg:w-[clamp(28rem,38.07vw,45.6875rem)]"
+          className="relative z-10 flex animate-rise flex-col gap-2 rounded-md bg-page p-2 max-lg:mt-8 lg:w-[clamp(28rem,38.07vw,45.6875rem)]"
           style={delay(650)}
         >
           <div className="flex flex-col gap-4 p-4 md:p-6">

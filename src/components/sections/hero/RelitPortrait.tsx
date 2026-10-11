@@ -101,6 +101,8 @@ export function RelitPortrait({ src, normalSrc, alt, sizes, className }: Props) 
     if (!image || !canvas || prefersReducedMotion()) return;
     // Ефект тільки для миші: на дотикових екранах курсора немає
     if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    // На вужчих екранах фото стоїть у рамці й кадрується інакше
+    if (!window.matchMedia("(min-width: 75rem)").matches) return;
 
     let cancelled = false;
     let cleanup = () => {};
@@ -230,7 +232,7 @@ export function RelitPortrait({ src, normalSrc, alt, sizes, className }: Props) 
         alt={alt}
         sizes={sizes}
         preload
-        className="block h-full w-full"
+        className="block h-full w-full object-cover object-top"
       />
       <canvas
         ref={canvasRef}

@@ -39,7 +39,7 @@ export function readLead(formData: FormData): LeadValues {
   const values = {} as LeadValues;
   for (const key of Object.keys(LIMITS) as (keyof LeadValues)[]) {
     const raw = formData.get(key);
-    values[key] = (typeof raw === "string" ? raw : "").replaceAll(" ", " ").trim().slice(0, LIMITS[key]);
+    values[key] = (typeof raw === "string" ? raw : "").replaceAll("\u00A0", " ").trim().slice(0, LIMITS[key]);
   }
   return values;
 }
