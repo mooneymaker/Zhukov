@@ -1,9 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   cacheComponents: true,
   partialPrefetching: true,
+  images: {
+    formats: ["image/avif", "image/webp"],
+    // 90 потрібна карті нормалей портрета: на 75 стиснення дає плями у світлі
+    qualities: [75, 90],
+  },
   turbopack: {
     rules: {
       "*.css": {
