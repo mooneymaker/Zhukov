@@ -202,6 +202,87 @@
   }
 }
 
+/*
+  Рамка фокуса зʼявляється лише під час керування клавіатурою. Поля вводу
+  браузер вважає «клавіатурними» навіть після кліку мишею, тому компонент
+  FocusModality ставить на <html> позначку data-keyboard після Tab
+  і знімає її після кліку.
+*/
+html:not([data-keyboard]) :focus-visible {
+  outline: none;
+}
+
+/*
+  Анкета (LeadDialog). Вікно й затемнення плавно проявляються і так само
+  зникають: для цього в сучасних браузерах є @starting-style і перехід
+  властивості display.
+*/
+html:has(.lead-dialog[open]) {
+  overflow: hidden;
+}
+
+.lead-dialog {
+  opacity: 0;
+  transition:
+    opacity 0.35s ease,
+    display 0.35s allow-discrete,
+    overlay 0.35s allow-discrete;
+}
+
+.lead-dialog[open] {
+  opacity: 1;
+
+  @starting-style {
+    opacity: 0;
+  }
+}
+
+.lead-dialog::backdrop {
+  background: rgb(10 11 10 / 0);
+  backdrop-filter: blur(0);
+  transition:
+    background 0.45s ease,
+    backdrop-filter 0.45s ease,
+    display 0.45s allow-discrete,
+    overlay 0.45s allow-discrete;
+}
+
+.lead-dialog[open]::backdrop {
+  background: rgb(10 11 10 / 0.6);
+  backdrop-filter: blur(8px);
+
+  @starting-style {
+    background: rgb(10 11 10 / 0);
+    backdrop-filter: blur(0);
+  }
+}
+
+/* На телефоні вікно виїжджає знизу, як аркуш; на ширших екранах трохи піднімається */
+.lead-panel {
+  translate: 0 100%;
+  transition: translate 0.6s var(--ease-out-expo);
+}
+
+.lead-dialog[open] .lead-panel {
+  translate: 0 0;
+
+  @starting-style {
+    translate: 0 100%;
+  }
+}
+
+@media (min-width: 48rem) {
+  .lead-panel {
+    translate: 0 2.5rem;
+  }
+
+  .lead-dialog[open] .lead-panel {
+    @starting-style {
+      translate: 0 2.5rem;
+    }
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

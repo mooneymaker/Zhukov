@@ -52,7 +52,7 @@ export async function Offer() {
                 ))}
               </dl>
             </div>
-            <SplitButton data-lead-open>{offer.card.buttonLabel}</SplitButton>
+            <SplitButton lead={offer.card.title}>{offer.card.buttonLabel}</SplitButton>
           </div>
         </InView>
 

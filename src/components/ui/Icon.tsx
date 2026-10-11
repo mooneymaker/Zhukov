@@ -3,13 +3,16 @@ import {
   GearSixIcon,
   GlobeHemisphereWestIcon,
   HandshakeIcon,
+  InfoIcon,
   ListDashesIcon,
   MegaphoneIcon,
   PackageIcon,
   RocketLaunchIcon,
   TagIcon,
+  TelegramLogoIcon,
   UserPlusIcon,
   UsersThreeIcon,
+  WhatsappLogoIcon,
 } from "@phosphor-icons/react/dist/ssr";
 
 // Іконки з набору Phosphor (заливка fill), як у макеті.
@@ -19,13 +22,16 @@ const ICONS = {
   gear: GearSixIcon,
   globe: GlobeHemisphereWestIcon,
   handshake: HandshakeIcon,
+  info: InfoIcon,
   list: ListDashesIcon,
   megaphone: MegaphoneIcon,
   package: PackageIcon,
   rocket: RocketLaunchIcon,
   tag: TagIcon,
+  telegram: TelegramLogoIcon,
   "user-plus": UserPlusIcon,
   users: UsersThreeIcon,
+  whatsapp: WhatsappLogoIcon,
 };
 
 export type IconName = keyof typeof ICONS;

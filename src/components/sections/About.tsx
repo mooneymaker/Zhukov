@@ -1,9 +1,9 @@
 import type { CSSProperties } from "react";
 import Image from "next/image";
-import { CountUp } from "@/components/motion/CountUp";
 import { HorizontalScroll } from "@/components/motion/HorizontalScroll";
 import { InView } from "@/components/motion/InView";
 import { RevealWords } from "@/components/motion/RevealWords";
+import { StatValue } from "@/components/ui/StatValue";
 import { getHome } from "@/lib/content";
 import portrait from "../../../public/images/about-portrait.png";
 
@@ -45,7 +45,7 @@ export async function About() {
                 style={delay(550 + index * 90)}
               >
                 <dd className="text-h3 font-normal tracking-[-0.03em] whitespace-nowrap">
-                  <CountUp value={result.value} start="view" />
+                  <StatValue value={result.value} delay={650 + index * 90} />
                 </dd>
                 <dt className="text-base">{result.label}</dt>
               </div>

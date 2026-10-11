@@ -11,6 +11,9 @@ type Props = {
    * потрапляє на екран.
    */
   start?: number | "view";
+  /** Для start="view": пауза після появи на екрані, мс. Зручно, щоб відлік
+   *  починався разом із появою картки, а не раніше за неї */
+  delay?: number;
   duration?: number;
 };
 
@@ -19,7 +22,7 @@ type Props = {
  * кілька чисел, рахується останнє. На сервері й без JavaScript одразу
  * стоїть готовий текст.
  */
-export function CountUp({ value, start = 0, duration = 1400 }: Props) {
+export function CountUp({ value, start = 0, delay = 150, duration = 1400 }: Props) {
   const ref = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
@@ -54,7 +57,7 @@ export function CountUp({ value, start = 0, duration = 1400 }: Props) {
         ([entry]) => {
           if (!entry.isIntersecting) return;
           observer?.disconnect();
-          run(performance.now() + 150);
+          run(performance.now() + delay);
         },
         { threshold: 0.6 },
       );
@@ -71,7 +74,7 @@ export function CountUp({ value, start = 0, duration = 1400 }: Props) {
       cancelAnimationFrame(raf);
       element.textContent = value;
     };
-  }, [value, start, duration]);
+  }, [value, start, delay, duration]);
 
   return <span ref={ref}>{value}</span>;
 }

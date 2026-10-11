@@ -20,8 +20,7 @@ export function LeadCard({ text, hint, buttonLabel, className }: Props) {
           </p>
         ) : null}
       </div>
-      {/* Анкету підключимо на етапі форми: кнопка знайде її за цим атрибутом */}
-      <SplitButton data-lead-open>{buttonLabel}</SplitButton>
+      <SplitButton lead={buttonLabel}>{buttonLabel}</SplitButton>
     </div>
   );
 }

@@ -79,7 +79,7 @@ type Props = {
  * поки користувач гортає, картки по одній влітають поверх заголовка
  * (той розмивається), між ними промальовуються вигнуті лінії звʼязків,
  * по лініях біжать сигнали, наприкінці зʼявляється підсумкова фраза.
- * Наведення на картку підсвічує її звʼязки.
+ * Наведення на картку підсвічує її звʼязки (самі картки не тьмяніють).
  * На телефоні й планшеті картки йдуть простим ланцюжком.
  */
 export function GrowthMapStage({ heading, cards, closing }: Props) {
@@ -235,9 +235,6 @@ export function GrowthMapStage({ heading, cards, closing }: Props) {
 
   const layout = LAYOUTS[layoutName];
   const linked = (edge: [number, number]) => active !== null && edge.includes(active);
-  const neighbours =
-    active === null ? null : new Set(EDGES.filter((e) => e.includes(active)).flat());
-
   return (
     <section ref={sectionRef} className="growth-map relative bg-page text-ink">
       <div className="flex flex-col gap-10 px-gutter py-section lg:sticky lg:top-0 lg:h-svh lg:items-center lg:justify-center lg:gap-0 lg:overflow-hidden lg:py-0">
@@ -275,16 +272,10 @@ export function GrowthMapStage({ heading, cards, closing }: Props) {
               }
             >
               <div
-                className={`transition-opacity duration-500 ${
-                  neighbours && !neighbours.has(index) ? "lg:opacity-40" : ""
-                }`}
+                className="h-full lg:group-data-[linked]/board:animate-float"
+                style={{ animationDelay: `${index * -1.3}s` }}
               >
-                <div
-                  className="h-full lg:group-data-[linked]/board:animate-float"
-                  style={{ animationDelay: `${index * -1.3}s` }}
-                >
-                  {card}
-                </div>
+                {card}
               </div>
             </div>
           ))}

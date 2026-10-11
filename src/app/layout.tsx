@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter_Tight } from "next/font/google";
+import { FocusModality } from "@/components/form/FocusModality";
 import { getSite } from "@/lib/content";
 import { allowIndexing, siteUrl } from "@/lib/env";
 import "./globals.css";
@@ -24,7 +25,10 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="uk" className={interTight.variable}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <FocusModality />
+      </body>
     </html>
   );
 }

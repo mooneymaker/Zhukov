@@ -101,7 +101,7 @@ export async function Problem() {
       </InView>
 
       {/* Висновок */}
-      <InView className="flex flex-col gap-8 lg:shrink-0 lg:flex-row lg:items-start lg:gap-[4.125rem]">
+      <InView className="flex flex-col gap-8 lg:shrink-0 lg:flex-row lg:items-center lg:gap-[4.125rem]">
         <h2 className="text-display font-medium lg:w-[45.3125rem]">
           <RevealWords text={problem.conclusion.heading} />
         </h2>
