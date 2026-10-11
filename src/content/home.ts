@@ -28,8 +28,13 @@ export type Home = {
     ctaLabel: string;
     /** Дві цифри у правому верхньому куті */
     stats: [Stat, Stat];
+    /**
+     * Блок про досвід. На компʼютері value і label стоять одним рядком,
+     * text під ними. На телефоні це третій рядок списку цифр.
+     */
     experience: {
-      title: string;
+      value: string;
+      label: string;
       text: string;
     };
     portraitAlt: string;
@@ -124,7 +129,8 @@ export const home: Home = {
       { value: "×1,8", label: "зростання виручки компанії за період моєї роботи" },
     ],
     experience: {
-      title: "17 років практичного досвіду",
+      value: "17 років",
+      label: "практичного досвіду",
       text: "від продажів і дизайну до управління зростанням бізнесу.",
     },
     portraitAlt: "Артур Жуков",

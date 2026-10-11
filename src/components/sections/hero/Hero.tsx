@@ -41,16 +41,17 @@ export async function Hero() {
         </div>
 
         {/* На телефоні й планшеті порядок інший, ніж на компʼютері: заголовок,
-            одразу плашка з кнопкою (щоб кнопку було видно без прокрутки),
-            далі цифри й фото в рамці. Для цього обгортка тут «розчиняється»,
-            а блоки розставляє order */}
+            фото, плашка з кнопкою (вона заходить на низ фото й ховає його
+            зріз), далі цифри списком. Усе до кнопки вміщається на першому
+            екрані. Для цього обгортка тут «розчиняється», а блоки
+            розставляє order */}
         <div className="max-lg:contents lg:flex lg:flex-1 lg:items-center">
-          <h1 className="relative z-10 text-display font-medium max-lg:order-2 max-lg:mt-8 lg:max-w-[10.8em] lg:text-[clamp(3rem,4.1667vw,5rem)]">
+          <h1 className="relative z-10 text-display font-medium max-lg:order-2 max-lg:mt-6 lg:max-w-[10.8em] lg:text-[clamp(3rem,4.1667vw,5rem)]">
             <RevealWords text={hero.heading} delay={AT.heading} />
           </h1>
 
-          {/* Цифри «сходинкою» і блок про досвід */}
-          <div className="relative z-10 mt-8 max-w-[27rem] max-lg:order-4 lg:absolute lg:inset-y-0 lg:right-gutter lg:mt-0 lg:w-[clamp(19rem,22.5vw,27rem)] lg:max-w-none lg:pt-gutter">
+          {/* Цифри «сходинкою» і блок про досвід: вигляд для компʼютера */}
+          <div className="relative z-10 max-lg:hidden lg:absolute lg:inset-y-0 lg:right-gutter lg:mt-0 lg:w-[clamp(19rem,22.5vw,27rem)] lg:max-w-none lg:pt-gutter">
             <dl className="grid auto-rows-fr grid-cols-2 lg:auto-rows-auto">
               <div className="relative flex flex-col gap-2 pr-[25px] pb-[25px]">
                 {/* Лінії промальовуються від стику двох блоків назовні */}
@@ -88,7 +89,7 @@ export async function Hero() {
             </dl>
             <div className="absolute top-1/2 left-0 w-1/2 pt-4 pr-4 lg:top-[50.3%] lg:left-1/2 lg:pt-0 lg:pr-0 lg:pl-[25px]">
               <p className="animate-rise text-lg lg:max-w-[10.4rem]" style={delay(AT.experience)}>
-                {hero.experience.title}
+                {hero.experience.value} {hero.experience.label}
               </p>
               <p
                 className="mt-2 animate-rise text-base lg:mt-6 lg:max-w-[10.4rem]"
@@ -98,19 +99,41 @@ export async function Hero() {
               </p>
             </div>
           </div>
+
+          {/* Ті самі цифри списком: вигляд для телефона й планшета */}
+          <dl className="relative z-10 mt-8 text-base max-lg:order-5 lg:hidden">
+            {[
+              ...hero.stats,
+              {
+                value: hero.experience.value,
+                label: `${hero.experience.label} ${hero.experience.text}`,
+              },
+            ].map((stat, index) => (
+              <div
+                key={stat.value}
+                className="grid animate-rise grid-cols-[5.5rem_1fr] items-baseline gap-4 border-t border-ink py-3"
+                style={delay(AT.firstStat + index * 100)}
+              >
+                <dd className="text-h5 font-normal tracking-[-0.03em] whitespace-nowrap">
+                  {stat.value}
+                </dd>
+                <dt>{stat.label}</dt>
+              </div>
+            ))}
+          </dl>
         </div>
 
-        {/* До 1200 px фото стоїть у рамці: її нижній край обрізає знімок рівно */}
+        {/* До 1200 px плашка під фото повної ширини й ховає його нижній зріз */}
         <RelitPortrait
           src={portrait}
           normalSrc={normalSrc}
           alt={hero.portraitAlt}
           sizes="(min-width: 75rem) 60vw, 100vw"
-          className="pointer-events-none relative w-full animate-[rise_1.4s_var(--ease-out-expo)_both] max-lg:order-5 max-lg:mt-8 max-lg:aspect-[4/3] max-lg:overflow-hidden max-lg:rounded-md max-lg:bg-plate/20 md:max-lg:aspect-[16/9] lg:absolute lg:bottom-0 lg:left-[62.2%] lg:aspect-[1471/1280] lg:h-[92.6%] lg:max-h-[min(52.1vw,62.5rem)] lg:w-auto lg:max-w-none lg:-translate-x-1/2 lg:translate-y-[9.2%]"
+          className="pointer-events-none relative w-full animate-[rise_1.4s_var(--ease-out-expo)_both] max-lg:order-3 max-lg:mt-2 max-lg:aspect-[1471/1280] md:max-lg:ml-auto md:max-lg:w-[62%] lg:absolute lg:bottom-0 lg:left-[62.2%] lg:aspect-[1471/1280] lg:h-[92.6%] lg:max-h-[min(52.1vw,62.5rem)] lg:w-auto lg:max-w-none lg:-translate-x-1/2 lg:translate-y-[9.2%]"
         />
 
         <div
-          className="relative z-10 animate-rise max-lg:order-3 max-lg:mt-6 lg:w-[clamp(28rem,38.07vw,45.6875rem)]"
+          className="relative z-10 animate-rise max-lg:order-4 max-lg:-mt-[30%] md:max-lg:-mt-[16%] lg:w-[clamp(28rem,38.07vw,45.6875rem)]"
           style={delay(AT.card)}
         >
           <LeadCard text={hero.lead} hint={hero.ctaHint} buttonLabel={hero.ctaLabel} />

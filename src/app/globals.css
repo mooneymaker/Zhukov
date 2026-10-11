@@ -21,16 +21,16 @@
   --radius-md: 1rem;
   --radius-pill: 6.25rem;
 
-  /* 80 px у макеті */
-  --text-display: clamp(2.5rem, 1.8932rem + 2.589vw, 5rem);
+  /* 80 px у макеті, 30 px на телефоні: головний заголовок там стає у три рядки */
+  --text-display: clamp(1.875rem, 1.1165rem + 3.2362vw, 5rem);
   --text-display--line-height: 1.1;
   --text-display--letter-spacing: -0.03em;
   /* 56 */
-  --text-h2: clamp(2rem, 1.6359rem + 1.5534vw, 3.5rem);
+  --text-h2: clamp(1.75rem, 1.3252rem + 1.8123vw, 3.5rem);
   --text-h2--line-height: 1.1;
   --text-h2--letter-spacing: -0.03em;
   /* 48 */
-  --text-h3: clamp(1.75rem, 1.4466rem + 1.2945vw, 3rem);
+  --text-h3: clamp(1.5rem, 1.1359rem + 1.5534vw, 3rem);
   --text-h3--line-height: 1.2;
   --text-h3--letter-spacing: -0.01em;
   /* 40 */
