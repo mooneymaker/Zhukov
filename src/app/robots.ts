@@ -1,10 +1,11 @@
 import type { MetadataRoute } from "next";
-import { allowIndexing } from "@/lib/env";
+import { allowIndexing, siteUrl } from "@/lib/env";
 
 export default function robots(): MetadataRoute.Robots {
+  if (!allowIndexing) return { rules: { userAgent: "*", disallow: "/" } };
+
   return {
-    rules: allowIndexing
-      ? { userAgent: "*", allow: "/" }
-      : { userAgent: "*", disallow: "/" },
+    rules: { userAgent: "*", allow: "/", disallow: "/thanks" },
+    sitemap: `${siteUrl}/sitemap.xml`,
   };
 }

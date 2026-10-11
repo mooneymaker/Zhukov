@@ -34,6 +34,8 @@ npm run check      # lint + типи + збірка, запускати пере
 | Анкета: перевірка полів і текст повідомлення | `src/lib/lead.ts` |
 | Відправка заявки в Telegram | `src/app/actions/lead.ts`, `src/lib/telegram.ts` |
 | Сторінка подяки | `src/app/thanks/page.tsx`, тексти в `src/content/thanks.ts` |
+| Заголовок і опис для пошуковиків, картинка для поширення, сторінка 404 | `src/content/site.ts`, `public/images/share.jpg`, див. `docs/CONTENT.md` |
+| Метадані, карта сайту, правила для роботів, дані schema.org | `src/app/layout.tsx`, `src/app/sitemap.ts`, `src/app/robots.ts`, `src/components/seo/StructuredData.tsx` |
 | Типографіка (короткі слова не висять у кінці рядка) | `src/lib/typography.ts`, працює автоматично |
 | Фото | `public/images/` |
 | Живий помаранчевий фон (перший екран, оффер, фінал) | `src/components/gradient/`, див. `docs/CONTENT.md` |

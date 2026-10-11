@@ -9,6 +9,7 @@ import { Pricing } from "@/components/sections/Pricing";
 import { Problem } from "@/components/sections/Problem";
 import { Process } from "@/components/sections/Process";
 import { Ways } from "@/components/sections/Ways";
+import { StructuredData } from "@/components/seo/StructuredData";
 
 export default function Home() {
   return (
@@ -24,6 +25,7 @@ export default function Home() {
       <Faq />
       <FinalCta />
       <LeadForm />
+      <StructuredData />
     </main>
   );
 }

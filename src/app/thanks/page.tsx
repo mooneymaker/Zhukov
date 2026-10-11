@@ -9,7 +9,11 @@ import { getSite, getThanks } from "@/lib/content";
 import portrait from "../../../public/images/hero-portrait.png";
 
 // Сторінка подяки не потрібна в пошуку
-export const metadata: Metadata = { robots: { index: false, follow: false } };
+export const metadata: Metadata = {
+  title: "Заявку отримано",
+  alternates: { canonical: "/thanks" },
+  robots: { index: false, follow: false },
+};
 
 const delay = (ms: number): CSSProperties => ({ animationDelay: `${ms}ms` });
 

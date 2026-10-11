@@ -16,9 +16,11 @@ import { typesetDeep } from "./typography";
 const preparedHome = typesetDeep(home);
 const preparedForm = typesetDeep(form);
 const preparedThanks = typesetDeep(thanks);
+// Назва й опис для пошуковиків лишаються як є, типографіка лише для текстів на екрані
+const preparedSite = { ...site, notFound: typesetDeep(site.notFound) };
 
 export async function getSite(): Promise<Site> {
-  return site;
+  return preparedSite;
 }
 
 export async function getHome(): Promise<Home> {
