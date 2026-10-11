@@ -1,4 +1,5 @@
 import { Hero } from "@/components/sections/hero/Hero";
+import { GrowthMap } from "@/components/sections/map/GrowthMap";
 import { Problem } from "@/components/sections/Problem";
 import { Ways } from "@/components/sections/Ways";
 
@@ -8,6 +9,7 @@ export default function Home() {
       <Hero />
       <Problem />
       <Ways />
+      <GrowthMap />
     </main>
   );
 }

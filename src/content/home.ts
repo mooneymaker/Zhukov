@@ -5,9 +5,17 @@ export type Stat = {
   label: string;
 };
 
+import type { IconName } from "@/components/ui/Icon";
+
 export type Idea = {
   /** Назва іконки зі списку в src/components/ui/Icon.tsx */
-  icon: "globe" | "list" | "rocket" | "tag" | "user-plus";
+  icon: IconName;
+  text: string;
+};
+
+export type Area = {
+  icon: IconName;
+  title: string;
   text: string;
 };
 
@@ -41,6 +49,16 @@ export type Home = {
     heading: { accent: string; rest: string };
     card: { text: string; buttonLabel: string };
     items: { title: string; lead: string; text: string }[];
+  };
+  map: {
+    heading: string;
+    /**
+     * Шість напрямів у порядку: маркетинг, продукт і ціни, продажі,
+     * клієнтська база, команда і процеси, економіка. Порядок важливий:
+     * за ним картки розставлені на схемі й зʼєднані лініями.
+     */
+    areas: [Area, Area, Area, Area, Area, Area];
+    closing: { text: string; accent: string };
   };
 };
 
@@ -110,5 +128,44 @@ export const home: Home = {
         text: "Нові продукти, сегменти, партнерства, канали продажів або комерційні напрями.",
       },
     ],
+  },
+  map: {
+    heading: "Зростання може ховатися там, де ви його не шукаєте",
+    areas: [
+      {
+        icon: "megaphone",
+        title: "Маркетинг",
+        text: "Скільки коштує залучення клієнта? Які канали приносять не просто заявки, а прибуток?",
+      },
+      {
+        icon: "package",
+        title: "Продукт і ціни",
+        text: "Які продукти створюють прибуток? Що варто розвивати, перепакувати або прибрати?",
+      },
+      {
+        icon: "handshake",
+        title: "Продажі",
+        text: "Де втрачаються клієнти? Чому не купують? Як підвищити конверсію без збільшення рекламного бюджету?",
+      },
+      {
+        icon: "users",
+        title: "Клієнтська база",
+        text: "Скільки клієнтів повертаються? Як збільшити частоту покупок і дохід від наявної бази?",
+      },
+      {
+        icon: "gear",
+        title: "Команда і процеси",
+        text: "Що гальмує виконання? Де не вистачає відповідальності, контролю або компетенцій?",
+      },
+      {
+        icon: "coins",
+        title: "Економіка",
+        text: "Виручка, валова маржа, CAC, LTV, середній чек, retention, продуктовий мікс.",
+      },
+    ],
+    closing: {
+      text: "Окремі показники не розповідають усієї історії.",
+      accent: "Важливо зрозуміти, як вони впливають один на одного",
+    },
   },
 };

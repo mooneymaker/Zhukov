@@ -92,6 +92,26 @@
     }
   }
 
+  /* Картка ледь погойдується, ніби плаває */
+  --animate-float: float 7s ease-in-out infinite;
+  /* Сигнал біжить уздовж лінії звʼязку між картками */
+  --animate-signal: signal 3.2s linear infinite;
+
+  @keyframes float {
+    50% {
+      translate: 0 -0.375rem;
+    }
+  }
+
+  @keyframes signal {
+    from {
+      stroke-dashoffset: 1;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
   @keyframes turn {
     to {
       rotate: 360deg;
@@ -161,9 +181,24 @@
   data-inview. Без JavaScript правило не діє, і все видно одразу.
 */
 @media (scripting: enabled) {
-  .reveal:not([data-inview]) :is(.animate-rise, .animate-word, .animate-draw),
-  .reveal:not([data-inview]):is(.animate-rise, .animate-word, .animate-draw) {
+  .reveal:not([data-inview])
+    :is([class*="animate-rise"], [class*="animate-word"], [class*="animate-draw"]),
+  .reveal:not([data-inview]):is(
+      [class*="animate-rise"],
+      [class*="animate-word"],
+      [class*="animate-draw"]
+    ) {
     animation-play-state: paused;
+  }
+}
+
+/*
+  Карта зростання: поки скрипт не розставив сцену, картки на компʼютері
+  сховані, щоб при перезавантаженні посеред сторінки вони не блимнули.
+*/
+@media (scripting: enabled) and (min-width: 75rem) {
+  .growth-map:not([data-ready]) .growth-map-card {
+    opacity: 0;
   }
 }
 
