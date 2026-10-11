@@ -46,7 +46,7 @@ export async function FinalCta() {
             style={delay(450)}
           >
             <p className="max-w-[10.5em] text-lg">{final.messengersLabel}</p>
-            <div className="flex gap-6 md:gap-8">
+            <div className="flex gap-4 md:gap-6">
               {messengers.map((messenger) =>
                 messenger.href ? (
                   <a
@@ -57,10 +57,10 @@ export async function FinalCta() {
                     aria-label={messenger.label}
                     className="rounded-sm transition-[scale] duration-500 ease-out-expo hover:scale-115"
                   >
-                    <Icon name={messenger.icon} className="size-10" />
+                    <Icon name={messenger.icon} className="size-12" />
                   </a>
                 ) : (
-                  <Icon key={messenger.label} name={messenger.icon} className="size-10" />
+                  <Icon key={messenger.label} name={messenger.icon} className="size-12" />
                 ),
               )}
             </div>
