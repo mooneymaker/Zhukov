@@ -28,6 +28,7 @@ npm run check      # lint + типи + збірка, запускати пере
 | Кольори, шрифти, розміри, відступи | `src/app/globals.css`, блок `@theme` |
 | Секції сторінки | `src/components/sections/` |
 | Кнопки, плашки та інші дрібні блоки | `src/components/ui/` |
+| Поява при прокрутці, горизонтальний скрол, лічильники | `src/components/motion/` |
 | Анкета | `src/components/form/`, `src/lib/lead-schema.ts` |
 | Відправка заявки в Telegram | `src/app/actions/lead.ts`, `src/lib/telegram.ts` |
 | Фото | `public/images/` |
