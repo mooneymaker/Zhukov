@@ -72,7 +72,7 @@ export async function Offer() {
                     style={delay((index % 2) * 120)}
                   />
                   <h4
-                    className="flex animate-rise items-start text-h4 font-medium"
+                    className="flex animate-rise items-start gap-1.5 text-h4 font-medium"
                     style={delay(100 + (index % 2) * 120)}
                   >
                     {gain.title}

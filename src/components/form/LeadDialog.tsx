@@ -5,6 +5,7 @@ import { useActionState, useEffect, useId, useRef, useState, type ReactNode } fr
 import { submitLead } from "@/app/actions/lead";
 import type { LeadForm } from "@/content/form";
 import type { LeadState } from "@/lib/lead";
+import { PhoneField } from "./PhoneField";
 import portrait from "../../../public/images/faq-portrait.png";
 
 const INITIAL: LeadState = { errors: {}, values: null };
@@ -163,7 +164,7 @@ export function LeadDialog({ content, submit, submitPending }: Props) {
                 />
               </Group>
 
-              <Group label={content.contacts.label} error={errors.contacts ?? errors.email}>
+              <Group label={content.contacts.label} error={errors.contacts ?? errors.phone ?? errors.email}>
                 <input
                   name="telegram"
                   aria-label={content.contacts.telegram}
@@ -172,14 +173,9 @@ export function LeadDialog({ content, submit, submitPending }: Props) {
                   aria-invalid={Boolean(errors.contacts)}
                   className={`${FIELD} h-16`}
                 />
-                <input
-                  name="phone"
-                  type="tel"
-                  autoComplete="tel"
-                  aria-label={content.contacts.phone}
-                  placeholder={content.contacts.phone}
-                  defaultValue={values?.phone}
-                  aria-invalid={Boolean(errors.contacts)}
+                <PhoneField
+                  label={content.contacts.phone}
+                  invalid={Boolean(errors.contacts ?? errors.phone)}
                   className={`${FIELD} h-16`}
                 />
                 <input

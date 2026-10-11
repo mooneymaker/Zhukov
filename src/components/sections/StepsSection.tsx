@@ -68,7 +68,7 @@ export function StepsSection({ heading, breakHeading = false, card, steps }: Pro
                 {index > 0 ? (
                   <span aria-hidden className="absolute inset-x-0 top-0 h-px animate-draw bg-page" />
                 ) : null}
-                <h3 className="flex animate-rise items-start text-h3 font-medium" style={delay(100)}>
+                <h3 className="flex animate-rise items-start gap-1.5 text-h3 font-medium" style={delay(100)}>
                   {step.title}
                   <span className="grid size-6 place-items-center rounded-pill bg-accent text-base font-semibold tracking-[-0.03em] text-ink">
                     {index + 1}

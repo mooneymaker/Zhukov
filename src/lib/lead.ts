@@ -1,6 +1,8 @@
 // Заявка з анкети: які поля в ній є і як вони перевіряються.
 // Файл спільний для сервера (перевірка й відправка) і форми в браузері.
 
+import { isFullPhone } from "./phone";
+
 export type LeadValues = {
   name: string;
   company: string;
@@ -14,7 +16,7 @@ export type LeadValues = {
   source: string;
 };
 
-export type LeadErrorKey = "name" | "company" | "task" | "contacts" | "email" | "form";
+export type LeadErrorKey = "name" | "company" | "task" | "contacts" | "phone" | "email" | "form";
 export type LeadErrors = Partial<Record<LeadErrorKey, string>>;
 
 export type LeadState = {
@@ -53,6 +55,7 @@ export function validateLead(
   if (!values.company) errors.company = messages.company;
   if (values.task.length < 5) errors.task = messages.task;
   if (!values.telegram && !values.phone && !values.email) errors.contacts = messages.contacts;
+  if (values.phone && !isFullPhone(values.phone)) errors.phone = messages.phone;
   if (values.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)) errors.email = messages.email;
   return errors;
 }

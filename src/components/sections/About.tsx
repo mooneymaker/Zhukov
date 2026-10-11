@@ -37,14 +37,16 @@ export async function About() {
           <h3 className="animate-rise text-h5 lg:max-w-[28rem]" style={delay(450)}>
             {about.resultsTitle}
           </h3>
-          <dl className="grid gap-4 sm:grid-cols-3 lg:flex">
+          {/* На телефоні й планшеті картка лежить горизонтально: велика цифра
+              ліворуч, підпис праворуч. На компʼютері цифра над підписом */}
+          <dl className="grid gap-2 lg:flex lg:gap-4">
             {about.results.map((result, index) => (
               <div
                 key={result.label}
-                className="flex animate-rise flex-col gap-6 rounded-sm bg-plate p-4 lg:w-[13.5rem]"
+                className="grid animate-rise grid-cols-[9.5rem_1fr] items-center gap-4 rounded-sm bg-plate p-4 lg:flex lg:w-[13.5rem] lg:flex-col lg:items-stretch lg:gap-6"
                 style={delay(550 + index * 90)}
               >
-                <dd className="text-h3 font-normal tracking-[-0.03em] whitespace-nowrap">
+                <dd className="text-h3 font-normal tracking-[-0.03em] whitespace-nowrap max-lg:text-[2.5rem] max-lg:leading-none">
                   <StatValue value={result.value} delay={650 + index * 90} />
                 </dd>
                 <dt className="text-base">{result.label}</dt>

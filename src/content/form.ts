@@ -17,6 +17,7 @@ export type LeadForm = {
     company: string;
     task: string;
     contacts: string;
+    phone: string;
     email: string;
     /** Заявку не вдалося надіслати з технічних причин */
     form: string;
@@ -58,6 +59,7 @@ export const form: LeadForm = {
     company: "Вкажіть назву компанії",
     task: "Опишіть задачу хоча б одним реченням",
     contacts: "Залиште хоча б один контакт: Telegram, телефон або email",
+    phone: "Введіть номер повністю: девʼять цифр після +380",
     email: "Перевірте адресу пошти",
     form: "Не вдалося надіслати заявку. Спробуйте ще раз або напишіть мені в месенджер.",
   },
