@@ -63,6 +63,38 @@
 
   --breakpoint-md: 48rem;
   --breakpoint-lg: 75rem;
+
+  /* Рух. Одна крива на весь сайт: швидкий старт, довге мʼяке гальмування */
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Поява блоку: проявляється і трохи піднімається */
+  --animate-rise: rise 0.9s var(--ease-out-expo) both;
+  /* Поява слова заголовка: виїжджає знизу з-під маски */
+  --animate-word: word 0.9s var(--ease-out-expo) both;
+  /* Промальовування ліній: рамка розкривається з кута, заданого --draw-from */
+  --animate-draw: draw 1.1s var(--ease-out-expo) both;
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(1.25rem);
+    }
+  }
+
+  @keyframes word {
+    from {
+      transform: translateY(115%);
+    }
+  }
+
+  @keyframes draw {
+    from {
+      clip-path: var(--draw-from, inset(0 100% 0 0));
+    }
+    to {
+      clip-path: inset(0);
+    }
+  }
 }
 
 @layer base {
