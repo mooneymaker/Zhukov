@@ -1,3 +1,4 @@
+import { About } from "@/components/sections/About";
 import { Hero } from "@/components/sections/hero/Hero";
 import { GrowthMap } from "@/components/sections/map/GrowthMap";
 import { Offer } from "@/components/sections/Offer";
@@ -12,6 +13,7 @@ export default function Home() {
       <Ways />
       <GrowthMap />
       <Offer />
+      <About />
     </main>
   );
 }

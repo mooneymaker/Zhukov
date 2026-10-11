@@ -59,7 +59,7 @@ export async function Hero() {
                   className="animate-rise text-h3 font-normal tracking-[-0.03em] whitespace-nowrap"
                   style={delay(AT.firstStat)}
                 >
-                  <CountUp value={first.value} delay={AT.firstStat} />
+                  <CountUp value={first.value} start={AT.firstStat} />
                 </dd>
                 <dt className="animate-rise text-base" style={delay(AT.firstStat + 80)}>
                   {first.label}
@@ -75,7 +75,7 @@ export async function Hero() {
                   className="animate-rise text-h3 font-normal tracking-[-0.03em] whitespace-nowrap"
                   style={delay(AT.secondStat)}
                 >
-                  <CountUp value={second.value} delay={AT.secondStat} />
+                  <CountUp value={second.value} start={AT.secondStat} />
                 </dd>
                 <dt className="animate-rise text-base" style={delay(AT.secondStat + 80)}>
                   {second.label}
