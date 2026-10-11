@@ -23,11 +23,17 @@ export async function Pricing() {
           </h2>
         </InView>
 
-        <InView className="grid w-full gap-4 lg:grid-cols-3 lg:gap-[1.0625rem]" threshold={0.15}>
+        {/* На компʼютері три картки ділять спільні ряди (subgrid): опис, кнопка,
+            примітка. Тому кнопки стоять на одному рівні, навіть якщо тексти
+            в картках різної довжини */}
+        <InView
+          className="grid w-full gap-4 lg:grid-cols-3 lg:grid-rows-[1fr_auto_auto] lg:gap-[1.0625rem]"
+          threshold={0.15}
+        >
           {pricing.plans.map((plan, index) => (
             <article
               key={plan.title}
-              className={`relative isolate flex animate-rise flex-col justify-between gap-8 overflow-hidden rounded-md p-2 transition-[translate] duration-500 ease-out-expo hover:-translate-y-1.5 ${
+              className={`relative isolate flex animate-rise flex-col justify-between gap-8 overflow-hidden rounded-md p-2 transition-[translate] duration-500 ease-out-expo hover:-translate-y-1.5 lg:row-span-3 lg:grid lg:grid-rows-subgrid lg:gap-0 ${
                 plan.featured ? "bg-accent text-ink" : "bg-field text-page"
               }`}
               style={delay(index * 120)}
@@ -52,11 +58,11 @@ export async function Pricing() {
                   ))}
                 </div>
               </div>
-              <div>
+              <div className="lg:contents">
                 <SplitButton variant={plan.featured ? "dark" : "light"} lead={plan.title}>
                   {plan.buttonLabel}
                 </SplitButton>
-                <p className="flex items-center gap-4 p-4 text-base md:gap-6 md:p-8">
+                <p className="flex items-center gap-4 p-4 text-base md:gap-6 md:p-8 lg:self-center">
                   <Icon name="info" className="size-8 shrink-0" />
                   {plan.note}
                 </p>
