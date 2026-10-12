@@ -23,11 +23,10 @@ export async function GrowthMap() {
       }
       cards={map.areas.map((area) => (
         <InView key={area.title} className="h-full">
-          <article className="flex h-full flex-col rounded-sm bg-plate p-4 max-lg:animate-rise">
-            {/* У малюнку 96×96 є власні поля, тому іконка заходить у відступ
-                картки: сам знак стоїть урівень із текстом, а картка лишається
-                тієї ж висоти, що й з маленькою іконкою (схема розрахована на неї) */}
-            <AreaIcon name={area.icon} className="-mt-2 -ml-2 size-16 shrink-0" />
+          <article className="flex h-full flex-col gap-3 rounded-sm bg-plate p-4 max-lg:animate-rise">
+            {/* Іконка 44 px і відступ 12 px дають ту саму висоту, що й колишні
+                32 + 24: схема розрахована на висоту карток, її не чіпаємо */}
+            <AreaIcon name={area.icon} className="h-11 w-17 shrink-0" />
             <div className="flex flex-col gap-2">
               <h3 className="text-h5 lg:text-[2rem]">{area.title}</h3>
               <p className="text-base lg:text-[1rem]">{area.text}</p>
