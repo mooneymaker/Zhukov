@@ -10,7 +10,7 @@ const delay = (ms: number): CSSProperties => ({ animationDelay: `${ms}ms` });
 
 /**
  * Друга секція: «Вашому бізнесу не завжди потрібно більше реклами».
- * На компʼютері гортається вбік (HorizontalScroll), на телефоні й планшеті
+ * На комп'ютері гортається вбік (HorizontalScroll), на телефоні й планшеті
  * блоки йдуть стовпчиком. Ширини блоків у rem відповідають макету 1920 px.
  */
 export async function Problem() {
@@ -46,7 +46,7 @@ export async function Problem() {
         </p>
       </InView>
 
-      {/* Ідеї: текст, пʼять карток, висновок */}
+      {/* Ідеї: текст, п'ять карток, висновок */}
       <InView className="grid grid-cols-2 gap-4 lg:mr-[9.1875rem] lg:w-[55.0625rem] lg:shrink-0 lg:grid-cols-3 lg:grid-rows-3">
         <p className="col-span-2 animate-rise text-h5 lg:max-w-[27rem]">{problem.ideasIntro}</p>
         <IdeaCard idea={firstIdea} className="lg:col-start-3 lg:row-start-1" style={delay(120)} />

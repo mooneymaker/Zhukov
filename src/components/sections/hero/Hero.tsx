@@ -10,7 +10,7 @@ import portraitNormal from "../../../../public/images/hero-portrait-normal.png";
 import { RelitPortrait } from "./RelitPortrait";
 
 // Карта нормалей іде через оптимізатор зображень: з PNG на 0,9 МБ виходить
-// кількадесят кілобайтів. Вантажиться лише на компʼютерах і після фото.
+// кількадесят кілобайтів. Вантажиться лише на комп'ютерах і після фото.
 const normalSrc = `/_next/image?url=${encodeURIComponent(portraitNormal.src)}&w=750&q=90`;
 
 // Розклад появи блоків, мс від завантаження. Порядок: логотип, заголовок
@@ -40,7 +40,7 @@ export async function Hero() {
           <Logo name={site.name} role={site.role} className="text-h5" />
         </div>
 
-        {/* На телефоні й планшеті порядок інший, ніж на компʼютері: заголовок,
+        {/* На телефоні й планшеті порядок інший, ніж на комп'ютері: заголовок,
             фото, плашка з кнопкою (вона заходить на низ фото й ховає його
             зріз), далі цифри списком. Усе до кнопки вміщається на першому
             екрані. Для цього обгортка тут «розчиняється», а блоки
@@ -50,7 +50,7 @@ export async function Hero() {
             <RevealWords text={hero.heading} delay={AT.heading} />
           </h1>
 
-          {/* Цифри «сходинкою» і блок про досвід: вигляд для компʼютера */}
+          {/* Цифри «сходинкою» і блок про досвід: вигляд для комп'ютера */}
           <div className="relative z-10 max-lg:hidden lg:absolute lg:inset-y-0 lg:right-gutter lg:mt-0 lg:w-[clamp(19rem,22.5vw,27rem)] lg:max-w-none lg:pt-gutter">
             <dl className="grid auto-rows-fr grid-cols-2 lg:auto-rows-auto">
               <div className="relative flex flex-col gap-2 pr-[25px] pb-[25px]">

@@ -19,7 +19,7 @@ type Props = {
   /** "submit" робить кнопку відправкою форми */
   type?: "button" | "submit";
   disabled?: boolean;
-  /** Іконка у квадраті замість стрілки, імʼя зі списку в Icon.tsx */
+  /** Іконка у квадраті замість стрілки, ім'я зі списку в Icon.tsx */
   icon?: IconName;
   className?: string;
 };

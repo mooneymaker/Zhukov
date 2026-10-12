@@ -23,7 +23,7 @@ export function typeset(text: string): string {
   );
 }
 
-/** Застосовує typeset до всіх рядків усередині обʼєкта чи масиву */
+/** Застосовує typeset до всіх рядків усередині об'єкта чи масиву */
 export function typesetDeep<T>(value: T): T {
   if (typeof value === "string") return typeset(value) as T;
   if (Array.isArray(value)) return value.map(typesetDeep) as T;

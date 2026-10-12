@@ -12,7 +12,7 @@ const POOL = 0.5; // додаткове освітлення плямою нав
 const POOL_RADIUS = 0.38; // радіус цієї плями
 const WARMTH = 0.3; // наскільки освітлені місця теплішають
 const FOLLOW_EASE = 7; // як швидко світло наздоганяє курсор
-const FADE_EASE = 2.2; // як швидко ефект зʼявляється і згасає
+const FADE_EASE = 2.2; // як швидко ефект з'являється і згасає
 const MAX_PIXEL_RATIO = 2;
 
 const VERTEX = `#version 300 es
@@ -61,7 +61,7 @@ void main() {
   // Текстура з уже помноженою прозорістю: рахуємо світло на чистому кольорі
   vec3 color = photo.rgb / max(photo.a, 0.0001) * exp2(stops);
   color *= mix(vec3(1.0), vec3(1.0, 0.86, 0.7), clamp(stops, 0.0, 1.0) * WARMTH);
-  // Мʼяке плече замість різкого пересвіту
+  // М'яке плече замість різкого пересвіту
   color = mix(color, 1.0 - exp(-color), smoothstep(0.6, 1.4, color));
 
   outColor = vec4(clamp(color, 0.0, 1.0) * photo.a, photo.a);

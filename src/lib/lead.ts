@@ -66,7 +66,7 @@ export function formatLead(values: LeadValues): string {
     "Нова заявка з сайту",
     values.source ? `Кнопка: ${values.source}` : "",
     "",
-    `Імʼя: ${values.name}`,
+    `Ім'я: ${values.name}`,
     `Компанія: ${values.company}`,
     values.companyUrl ? `Сайт чи соцмережі: ${values.companyUrl}` : "",
     values.revenue ? `Виручка на місяць: ${values.revenue}` : "",

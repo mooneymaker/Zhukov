@@ -23,7 +23,7 @@ export async function FinalCta() {
     <section className="relative isolate overflow-hidden bg-accent text-ink">
       <GradientBackdrop />
       <div className="relative mx-auto max-w-site px-gutter py-section lg:min-h-[min(55vw,66rem)]">
-        {/* На компʼютері портрет нахилено й зсунуто за лівий край, як у макеті.
+        {/* На комп'ютері портрет нахилено й зсунуто за лівий край, як у макеті.
             На телефоні й планшеті він стоїть у рамці над заголовком */}
         <div className="pointer-events-none relative max-lg:mb-8 max-lg:aspect-[4/3] max-lg:overflow-hidden max-lg:rounded-md max-lg:bg-plate/20 md:max-lg:aspect-[16/9] lg:absolute lg:top-[calc(-0.0646*min(100vw,120rem))] lg:left-[-26.46%] lg:aspect-[3/2] lg:w-[108.6%] lg:origin-top-left lg:rotate-[7.08deg]">
           <Image

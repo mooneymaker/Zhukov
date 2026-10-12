@@ -14,7 +14,7 @@ import {
 } from "@phosphor-icons/react/dist/ssr";
 
 // Іконки з набору Phosphor (заливка fill), як у макеті.
-// Щоб додати нову: імпортуйте її вище і впишіть у цей список під зручним імʼям.
+// Щоб додати нову: імпортуйте її вище і впишіть у цей список під зручним ім'ям.
 const ICONS = {
   coins: CoinsIcon,
   gear: GearSixIcon,

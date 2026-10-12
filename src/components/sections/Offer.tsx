@@ -7,7 +7,7 @@ import { getHome } from "@/lib/content";
 
 const delay = (ms: number): CSSProperties => ({ animationDelay: `${ms}ms` });
 
-/** Пʼята секція: оффер «За 14 днів». Живий помаранчевий фон, дві колонки. */
+/** П'ята секція: оффер «За 14 днів». Живий помаранчевий фон, дві колонки. */
 export async function Offer() {
   const { offer } = await getHome();
 
