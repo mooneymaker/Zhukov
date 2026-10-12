@@ -1,6 +1,6 @@
 import { InView } from "@/components/motion/InView";
 import { RevealWords } from "@/components/motion/RevealWords";
-import { Icon } from "@/components/ui/Icon";
+import { AreaIcon } from "@/components/ui/area-icons";
 import { getHome } from "@/lib/content";
 import { GrowthMapStage } from "./GrowthMapStage";
 
@@ -23,8 +23,11 @@ export async function GrowthMap() {
       }
       cards={map.areas.map((area) => (
         <InView key={area.title} className="h-full">
-          <article className="flex h-full flex-col gap-6 rounded-sm bg-plate p-4 max-lg:animate-rise">
-            <Icon name={area.icon} className="size-8" />
+          <article className="flex h-full flex-col rounded-sm bg-plate p-4 max-lg:animate-rise">
+            {/* У малюнку 96×96 є власні поля, тому іконка заходить у відступ
+                картки: сам знак стоїть урівень із текстом, а картка лишається
+                тієї ж висоти, що й з маленькою іконкою (схема розрахована на неї) */}
+            <AreaIcon name={area.icon} className="-mt-2 -ml-2 size-16 shrink-0" />
             <div className="flex flex-col gap-2">
               <h3 className="text-h5 lg:text-[2rem]">{area.title}</h3>
               <p className="text-base lg:text-[1rem]">{area.text}</p>

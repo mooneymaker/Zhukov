@@ -1,33 +1,21 @@
 import {
-  CoinsIcon,
-  GearSixIcon,
   GlobeHemisphereWestIcon,
-  HandshakeIcon,
   InfoIcon,
   ListDashesIcon,
-  MegaphoneIcon,
-  PackageIcon,
   RocketLaunchIcon,
   TagIcon,
   UserPlusIcon,
-  UsersThreeIcon,
 } from "@phosphor-icons/react/dist/ssr";
 
 // Іконки з набору Phosphor (заливка fill), як у макеті.
 // Щоб додати нову: імпортуйте її вище і впишіть у цей список під зручним ім'ям.
 const ICONS = {
-  coins: CoinsIcon,
-  gear: GearSixIcon,
   globe: GlobeHemisphereWestIcon,
-  handshake: HandshakeIcon,
   info: InfoIcon,
   list: ListDashesIcon,
-  megaphone: MegaphoneIcon,
-  package: PackageIcon,
   rocket: RocketLaunchIcon,
   tag: TagIcon,
   "user-plus": UserPlusIcon,
-  users: UsersThreeIcon,
 };
 
 // Знаки месенджерів намальовані окремо (ті самі, що на dimadiuh.com),

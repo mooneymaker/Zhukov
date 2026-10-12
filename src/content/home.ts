@@ -6,6 +6,7 @@ export type Stat = {
 };
 
 import type { Step } from "@/components/sections/StepsSection";
+import type { AreaIconName } from "@/components/ui/area-icons";
 import type { IconName } from "@/components/ui/Icon";
 
 export type Idea = {
@@ -15,7 +16,8 @@ export type Idea = {
 };
 
 export type Area = {
-  icon: IconName;
+  /** Назва іконки зі списку в src/components/ui/area-icons.tsx */
+  icon: AreaIconName;
   title: string;
   text: string;
 };
@@ -190,32 +192,32 @@ export const home: Home = {
     heading: "Зростання може ховатися там, де ви його не шукаєте",
     areas: [
       {
-        icon: "megaphone",
+        icon: "marketing",
         title: "Маркетинг",
         text: "Скільки коштує залучення клієнта? Які канали приносять не просто заявки, а прибуток?",
       },
       {
-        icon: "package",
+        icon: "product",
         title: "Продукт і ціни",
         text: "Які продукти створюють прибуток? Що варто розвивати, перепакувати або прибрати?",
       },
       {
-        icon: "handshake",
+        icon: "sales",
         title: "Продажі",
         text: "Де втрачаються клієнти? Чому не купують? Як підвищити конверсію без збільшення рекламного бюджету?",
       },
       {
-        icon: "users",
+        icon: "clients",
         title: "Клієнтська база",
         text: "Скільки клієнтів повертаються? Як збільшити частоту покупок і дохід від наявної бази?",
       },
       {
-        icon: "gear",
+        icon: "team",
         title: "Команда і процеси",
         text: "Що гальмує виконання? Де не вистачає відповідальності, контролю або компетенцій?",
       },
       {
-        icon: "coins",
+        icon: "economy",
         title: "Економіка",
         text: "Виручка, валова маржа, CAC, LTV, середній чек, retention, продуктовий мікс.",
       },
