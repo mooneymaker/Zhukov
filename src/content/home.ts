@@ -7,11 +7,10 @@ export type Stat = {
 
 import type { Step } from "@/components/sections/StepsSection";
 import type { AreaIconName } from "@/components/ui/area-icons";
-import type { IconName } from "@/components/ui/Icon";
 
 export type Idea = {
-  /** Назва іконки зі списку в src/components/ui/Icon.tsx */
-  icon: IconName;
+  /** Назва іконки зі списку в src/components/ui/area-icons.tsx */
+  icon: AreaIconName;
   text: string;
 };
 
@@ -142,11 +141,11 @@ export const home: Home = {
     scrollHint: "Гортайте далі",
     ideasIntro: "Коли зростання сповільнюється, зазвичай з'являється багато ідей:",
     ideas: [
-      { icon: "list", text: "Впровадити CRM" },
-      { icon: "globe", text: "Вийти на новий ринок" },
-      { icon: "user-plus", text: "Найняти нових менеджерів" },
-      { icon: "tag", text: "Змінити ціни або пропозицію" },
-      { icon: "rocket", text: "Запустити новий продукт" },
+      { icon: "crm", text: "Впровадити CRM" },
+      { icon: "market", text: "Вийти на новий ринок" },
+      { icon: "hire", text: "Найняти нових менеджерів" },
+      { icon: "price", text: "Змінити ціни або пропозицію" },
+      { icon: "launch", text: "Запустити новий продукт" },
     ],
     ideasOutro: {
       text: "Кожне з цих рішень може спрацювати.",

@@ -1,11 +1,12 @@
-// Іконки шести карток «карти зростання». Намальовані в полі 96×96, фірмовий
+// Кольорові іконки карток: «карта зростання» і ідеї в секції про рекламу.
+// Намальовані в полі 96×96, фірмовий
 // помаранчевий градієнт; чорні лінії малюються кольором тексту картки.
 // viewBox обрізаний по краях малюнка: так іконки різної форми стають
 // на одну нижню лінію й мають однаковий відступ до заголовка.
 // Ідентифікатори градієнтів і фільтрів мають префікс із назви іконки, щоб
 // не перетиналися між собою на одній сторінці.
 // Окремо від Icon.tsx навмисно: Icon потрапляє в клієнтський код (через
-// SplitButton), а ці малюнки важкі й потрібні лише серверній секції карти.
+// SplitButton), а ці малюнки важкі й потрібні лише серверним секціям.
 
 const AREA_ICONS = {
   // Маркетинг
@@ -252,6 +253,125 @@ const AREA_ICONS = {
         <stop offset="0.57664" stopColor="white"/>
         <stop offset="1" stopColor="#FF6F00"/>
         </radialGradient>
+        </defs>
+      </>
+    ),
+  },
+  // Картки секції «Вашому бізнесу не завжди потрібно більше реклами».
+  // Намальовані в тому ж стилі, що й шість іконок карти вище.
+  // Впровадити CRM
+  crm: {
+    viewBox: "20 10 56 74",
+    body: (
+      <>
+        <rect x="28" y="10" width="48" height="60" rx="3" fill="url(#crm-a)"/>
+        <rect x="20" y="18" width="52" height="66" rx="3" fill="url(#crm-b)"/>
+        <path d="M28.5 41.5L31.5 44.5L37 38.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        <rect x="42" y="40" width="22" height="3" rx="1.5" fill="white"/>
+        <circle cx="32.5" cy="54" r="2.5" fill="white"/>
+        <rect x="42" y="52.5" width="22" height="3" rx="1.5" fill="white"/>
+        <circle cx="32.5" cy="66" r="2.5" fill="white"/>
+        <rect x="42" y="64.5" width="16" height="3" rx="1.5" fill="white"/>
+        <rect x="28" y="27" width="20" height="3" rx="1.5" fill="white"/>
+        <defs>
+        <linearGradient id="crm-a" x1="52" y1="-8" x2="52" y2="70" gradientUnits="userSpaceOnUse">
+        <stop stopColor="white"/>
+        <stop offset="1" stopColor="#FF6F00"/>
+        </linearGradient>
+        <linearGradient id="crm-b" x1="46" y1="8" x2="46" y2="84" gradientUnits="userSpaceOnUse">
+        <stop stopColor="white"/>
+        <stop offset="1" stopColor="#FF6F00"/>
+        </linearGradient>
+        </defs>
+      </>
+    ),
+  },
+  // Вийти на новий ринок
+  market: {
+    viewBox: "12 11 73 73",
+    body: (
+      <>
+        <circle cx="42" cy="54" r="30" fill="url(#market-a)"/>
+        <ellipse cx="42" cy="54" rx="12" ry="29" stroke="white" strokeWidth="2"/>
+        <path d="M13 54H71M17 39H67M17 69H67" stroke="white" strokeWidth="2"/>
+        <path d="M62 34L84 12M74 12H84V22" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        <defs>
+        <linearGradient id="market-a" x1="72" y1="24" x2="12" y2="84" gradientUnits="userSpaceOnUse">
+        <stop stopColor="white" stopOpacity="0"/>
+        <stop offset="0.85" stopColor="#FF6F00"/>
+        </linearGradient>
+        </defs>
+      </>
+    ),
+  },
+  // Найняти нових менеджерів
+  hire: {
+    viewBox: "18 5 72 80",
+    body: (
+      <>
+        <rect x="22" y="20" width="48" height="53" rx="3" fill="url(#hire-a)"/>
+        <rect x="18" y="24" width="56" height="61" rx="3" fill="url(#hire-b)"/>
+        <g transform="translate(-2 5)">
+        <path d="M60.9681 55.6683C60.8791 55.8214 60.751 55.9485 60.5968 56.0369C60.4425 56.1252 60.2676 56.1717 60.0895 56.1717H35.7478C35.5698 56.1715 35.395 56.1249 35.241 56.0364C35.087 55.948 34.9591 55.8209 34.8702 55.6679C34.7813 55.5149 34.7345 55.3414 34.7346 55.1648C34.7346 54.9881 34.7815 54.8146 34.8704 54.6617C36.8013 51.3485 39.7768 48.9727 43.2493 47.8465C41.5317 46.8316 40.1972 45.2851 39.4507 43.4446C38.7043 41.604 38.5872 39.5712 39.1175 37.6582C39.6478 35.7452 40.796 34.0579 42.386 32.8553C43.9759 31.6528 45.9197 31.0015 47.9186 31.0015C49.9176 31.0015 51.8613 31.6528 53.4513 32.8553C55.0412 34.0579 56.1895 35.7452 56.7198 37.6582C57.25 39.5712 57.133 41.604 56.3865 43.4446C55.6401 45.2851 54.3056 46.8316 52.5879 47.8465C56.0604 48.9727 59.036 51.3485 60.9668 54.6617C61.056 54.8146 61.1031 54.9881 61.1034 55.1648C61.1036 55.3415 61.0569 55.5152 60.9681 55.6683Z" fill="white"/>
+        <rect x="34" y="65" width="24" height="2" rx="1" fill="white"/>
+        <rect x="38" y="68" width="16" height="2" rx="1" fill="white"/>
+        </g>
+        <path d="M80 6V24M71 15H89" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+        <defs>
+        <linearGradient id="hire-a" x1="46" y1="-2" x2="46" y2="73" gradientUnits="userSpaceOnUse">
+        <stop stopColor="white"/>
+        <stop offset="1" stopColor="#FF6F00"/>
+        </linearGradient>
+        <linearGradient id="hire-b" x1="46" y1="17" x2="46" y2="85" gradientUnits="userSpaceOnUse">
+        <stop stopColor="white"/>
+        <stop offset="1" stopColor="#FF6F00"/>
+        </linearGradient>
+        </defs>
+      </>
+    ),
+  },
+  // Змінити ціни або пропозицію
+  price: {
+    viewBox: "14 11 75 71",
+    body: (
+      <>
+        <path d="M15.1 52.9L46.9 21.1C47.5 20.4 48.3 20 49.2 20H73C74.7 20 76 21.3 76 23V46.8C76 47.7 75.6 48.5 74.9 49.1L43.1 80.9C41.9 82.1 40 82.1 38.9 80.9L15.1 57.1C13.9 56 13.9 54.1 15.1 52.9Z" fill="url(#price-a)"/>
+        <circle cx="64" cy="32" r="4.5" fill="white"/>
+        <path d="M64 32C70 22 78 15 88 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+        <circle cx="38" cy="50" r="3.5" stroke="white" strokeWidth="2.5"/>
+        <circle cx="52" cy="64" r="3.5" stroke="white" strokeWidth="2.5"/>
+        <path d="M54 48L36 66" stroke="white" strokeWidth="2.5" strokeLinecap="round"/>
+        <defs>
+        <linearGradient id="price-a" x1="76" y1="20" x2="16" y2="80" gradientUnits="userSpaceOnUse">
+        <stop stopColor="white" stopOpacity="0"/>
+        <stop offset="1" stopColor="#FF6F00"/>
+        </linearGradient>
+        </defs>
+      </>
+    ),
+  },
+  // Запустити новий продукт
+  launch: {
+    viewBox: "12 9 75 75",
+    body: (
+      <>
+        <g transform="rotate(45 48 48)">
+        <path d="M38 56L26 70V76L38 70Z" fill="url(#launch-f)"/>
+        <path d="M58 56L70 70V76L58 70Z" fill="url(#launch-f)"/>
+        <path d="M48 6C60 18 63 38 59 70H37C33 38 36 18 48 6Z" fill="url(#launch-a)"/>
+        <circle cx="48" cy="36" r="6" fill="white"/>
+        <rect x="41" y="58" width="14" height="3" rx="1.5" fill="white"/>
+        <path d="M43 76V84M48 76V92M53 76V84" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+        </g>
+        <defs>
+        <linearGradient id="launch-a" x1="48" y1="6" x2="48" y2="70" gradientUnits="userSpaceOnUse">
+        <stop stopColor="white" stopOpacity="0"/>
+        <stop offset="1" stopColor="#FF6F00"/>
+        </linearGradient>
+        <linearGradient id="launch-f" x1="48" y1="56" x2="48" y2="76" gradientUnits="userSpaceOnUse">
+        <stop stopColor="#FFAB50"/>
+        <stop offset="1" stopColor="#FF6F00"/>
+        </linearGradient>
         </defs>
       </>
     ),

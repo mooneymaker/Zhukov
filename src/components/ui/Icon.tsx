@@ -1,21 +1,9 @@
-import {
-  GlobeHemisphereWestIcon,
-  InfoIcon,
-  ListDashesIcon,
-  RocketLaunchIcon,
-  TagIcon,
-  UserPlusIcon,
-} from "@phosphor-icons/react/dist/ssr";
+import { InfoIcon } from "@phosphor-icons/react/dist/ssr";
 
 // Іконки з набору Phosphor (заливка fill), як у макеті.
 // Щоб додати нову: імпортуйте її вище і впишіть у цей список під зручним ім'ям.
 const ICONS = {
-  globe: GlobeHemisphereWestIcon,
   info: InfoIcon,
-  list: ListDashesIcon,
-  rocket: RocketLaunchIcon,
-  tag: TagIcon,
-  "user-plus": UserPlusIcon,
 };
 
 // Знаки месенджерів намальовані окремо (ті самі, що на dimadiuh.com),

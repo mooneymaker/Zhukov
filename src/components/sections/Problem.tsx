@@ -3,7 +3,7 @@ import { HorizontalScroll } from "@/components/motion/HorizontalScroll";
 import { InView } from "@/components/motion/InView";
 import { RevealWords } from "@/components/motion/RevealWords";
 import { Badge } from "@/components/ui/Badge";
-import { Icon } from "@/components/ui/Icon";
+import { AreaIcon, type AreaIconName } from "@/components/ui/area-icons";
 import { getHome, getSite } from "@/lib/content";
 
 const delay = (ms: number): CSSProperties => ({ animationDelay: `${ms}ms` });
@@ -122,18 +122,19 @@ function IdeaCard({
   className,
   style,
 }: {
-  idea: { icon: Parameters<typeof Icon>[0]["name"]; text: string };
+  idea: { icon: AreaIconName; text: string };
   className?: string;
   style?: CSSProperties;
 }) {
   return (
     <div
-      className={`group flex animate-rise flex-col gap-6 rounded-sm bg-plate p-4 transition-[translate] duration-500 ease-out-expo hover:-translate-y-1 ${className ?? ""}`}
+      className={`group flex animate-rise flex-col gap-3 rounded-sm bg-plate p-4 transition-[translate] duration-500 ease-out-expo hover:-translate-y-1 ${className ?? ""}`}
       style={style}
     >
-      <Icon
+      {/* 44 px іконка + відступ 12 px = колишні 32 + 24: висота карток не змінилась */}
+      <AreaIcon
         name={idea.icon}
-        className="size-8 transition-[rotate,scale] duration-500 ease-out-expo group-hover:scale-110 group-hover:-rotate-6"
+        className="h-11 w-17 origin-bottom-left transition-[rotate,scale] duration-500 ease-out-expo group-hover:scale-110 group-hover:-rotate-6"
       />
       <p className="text-lg">{idea.text}</p>
     </div>
