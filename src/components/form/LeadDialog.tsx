@@ -135,9 +135,14 @@ export function LeadDialog({ content, submit, submitPending }: Props) {
                   <select
                     id={`${id}-revenue`}
                     name="revenue"
-                    defaultValue={values?.revenue ?? content.revenue.options[0]}
+                    defaultValue={values?.revenue ?? ""}
                     className={`${FIELD} h-16 cursor-pointer appearance-none pr-14`}
                   >
+                    {/* Без значення за замовчуванням: людина обирає сама. Поле
+                        необов'язкове, порожнє просто не потрапляє в заявку */}
+                    <option value="" disabled>
+                      {content.revenue.placeholder}
+                    </option>
                     {content.revenue.options.map((option) => (
                       <option key={option}>{option}</option>
                     ))}

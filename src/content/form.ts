@@ -6,7 +6,12 @@ export type LeadForm = {
   closeLabel: string;
   name: { label: string; placeholder: string };
   company: { label: string; placeholder: string; urlPlaceholder: string };
-  revenue: { label: string; options: string[] };
+  revenue: {
+    label: string;
+    /** Перший рядок списку, поки нічого не обрано. Вибрати його не можна */
+    placeholder: string;
+    options: string[];
+  };
   task: { label: string; placeholder: string };
   contacts: { label: string; telegram: string; phone: string; email: string };
   privacy: string;
@@ -36,6 +41,7 @@ export const form: LeadForm = {
   },
   revenue: {
     label: "Яка приблизна виручка вашого бізнесу на місяць?",
+    placeholder: "Оберіть діапазон",
     // У макеті є лише перший варіант. Решта це чернетка, діапазони має
     // підтвердити Артур.
     options: ["До $50 000", "$50 000 – $200 000", "$200 000 – $1 000 000", "Понад $1 000 000"],
