@@ -7,7 +7,7 @@ import { Icon } from "@/components/ui/Icon";
 import { LeadCard } from "@/components/ui/LeadCard";
 import { Logo } from "@/components/ui/Logo";
 import { getHome, getSite } from "@/lib/content";
-import portrait from "../../../public/images/final-portrait.jpg";
+import portrait from "../../../public/images/final-portrait.png";
 
 const delay = (ms: number): CSSProperties => ({ animationDelay: `${ms}ms` });
 
@@ -23,14 +23,14 @@ export async function FinalCta() {
     <section className="relative isolate overflow-hidden bg-accent text-ink">
       <GradientBackdrop />
       <div className="relative mx-auto max-w-site px-gutter py-section lg:min-h-[min(55vw,66rem)]">
-        {/* Портрет у рамці: на комп'ютері займає ліву половину на всю висоту
-            секції, на телефоні й планшеті стоїть над заголовком */}
-        <div className="pointer-events-none relative overflow-hidden rounded-md max-lg:mb-8 max-lg:aspect-[4/3] md:max-lg:aspect-[16/9] lg:absolute lg:top-section lg:bottom-section lg:left-gutter lg:w-[calc(50.5%-var(--spacing-gutter)-4rem)]">
+        {/* На комп'ютері портрет нахилено й зсунуто за лівий край, як у макеті.
+            На телефоні й планшеті він стоїть у рамці над заголовком */}
+        <div className="pointer-events-none relative max-lg:mb-8 max-lg:aspect-[4/3] max-lg:overflow-hidden max-lg:rounded-md max-lg:bg-plate/20 md:max-lg:aspect-[16/9] lg:absolute lg:top-[calc(-0.0646*min(100vw,120rem))] lg:left-[-26.46%] lg:aspect-[3/2] lg:w-[108.6%] lg:origin-top-left lg:rotate-[7.08deg]">
           <Image
             src={portrait}
             alt={final.portraitAlt}
-            sizes="(min-width: 75rem) 45vw, 100vw"
-            className="size-full object-cover object-[50%_30%]"
+            sizes="(min-width: 75rem) 109vw, 100vw"
+            className="size-full object-cover object-top"
           />
         </div>
 

@@ -1,12 +1,17 @@
 import type { CSSProperties } from "react";
-import Image from "next/image";
 import { GradientBackdrop } from "@/components/gradient/GradientBackdrop";
 import { CountUp } from "@/components/motion/CountUp";
 import { RevealWords } from "@/components/motion/RevealWords";
 import { LeadCard } from "@/components/ui/LeadCard";
 import { Logo } from "@/components/ui/Logo";
 import { getHome, getSite } from "@/lib/content";
-import portrait from "../../../../public/images/hero-portrait.jpg";
+import portrait from "../../../../public/images/hero-portrait.png";
+import portraitNormal from "../../../../public/images/hero-portrait-normal.png";
+import { RelitPortrait } from "./RelitPortrait";
+
+// Карта нормалей іде через оптимізатор зображень: з PNG на 0,9 МБ виходить
+// кількадесят кілобайтів. Вантажиться лише на комп'ютерах і після фото.
+const normalSrc = `/_next/image?url=${encodeURIComponent(portraitNormal.src)}&w=750&q=90`;
 
 // Розклад появи блоків, мс від завантаження. Порядок: логотип, заголовок
 // по словах, плашка, лінії цифр, самі цифри, блок про досвід.
@@ -27,7 +32,7 @@ export async function Hero() {
   const [first, second] = hero.stats;
 
   return (
-    <section className="relative isolate overflow-hidden bg-accent text-ink">
+    <section data-pointer-zone className="relative isolate overflow-hidden bg-accent text-ink">
       <GradientBackdrop />
 
       <div className="relative mx-auto flex max-w-site flex-col px-gutter py-gutter lg:h-svh lg:min-h-[42rem]">
@@ -41,7 +46,7 @@ export async function Hero() {
             екрані. Для цього обгортка тут «розчиняється», а блоки
             розставляє order */}
         <div className="max-lg:contents lg:flex lg:flex-1 lg:items-center">
-          <h1 className="relative z-10 text-display font-medium max-lg:order-2 max-lg:mt-6 lg:max-w-[clamp(28rem,38.07vw,45.6875rem)] lg:text-[clamp(3rem,4.1667vw,5rem)]">
+          <h1 className="relative z-10 text-display font-medium max-lg:order-2 max-lg:mt-6 lg:max-w-[10.8em] lg:text-[clamp(3rem,4.1667vw,5rem)]">
             <RevealWords text={hero.heading} delay={AT.heading} />
           </h1>
 
@@ -118,18 +123,14 @@ export async function Hero() {
           </dl>
         </div>
 
-        {/* Портрет у рамці. На комп'ютері стоїть між лівою колонкою (заголовок
-            і плашка однакової ширини) та цифрами, низом на одній лінії з
-            плашкою. До 1200 px плашка заходить на низ фото */}
-        <div className="pointer-events-none relative animate-[rise_1.4s_var(--ease-out-expo)_both] overflow-hidden rounded-md max-lg:order-3 max-lg:mt-6 max-lg:aspect-[8/7] md:max-lg:ml-auto md:max-lg:w-[62%] lg:absolute lg:right-[calc(var(--spacing-gutter)+clamp(19rem,22.5vw,27rem)+2rem)] lg:bottom-gutter lg:left-[calc(var(--spacing-gutter)+clamp(28rem,38.07vw,45.6875rem)+2rem)] lg:aspect-[2/3] lg:max-h-[calc(100%-2*var(--spacing-gutter)-4rem)]">
-          <Image
-            src={portrait}
-            alt={hero.portraitAlt}
-            sizes="(min-width: 75rem) 30vw, (min-width: 48rem) 62vw, 100vw"
-            preload
-            className="size-full object-cover object-top"
-          />
-        </div>
+        {/* До 1200 px плашка під фото повної ширини й ховає його нижній зріз */}
+        <RelitPortrait
+          src={portrait}
+          normalSrc={normalSrc}
+          alt={hero.portraitAlt}
+          sizes="(min-width: 75rem) 60vw, 100vw"
+          className="pointer-events-none relative w-full animate-[rise_1.4s_var(--ease-out-expo)_both] max-lg:order-3 max-lg:mt-2 max-lg:aspect-[1471/1280] md:max-lg:ml-auto md:max-lg:w-[62%] lg:absolute lg:bottom-0 lg:left-[62.2%] lg:aspect-[1471/1280] lg:h-[92.6%] lg:max-h-[min(52.1vw,62.5rem)] lg:w-auto lg:max-w-none lg:-translate-x-1/2 lg:translate-y-[9.2%]"
+        />
 
         <div
           className="relative z-10 animate-rise max-lg:order-4 max-lg:-mt-[30%] md:max-lg:-mt-[16%] lg:w-[clamp(28rem,38.07vw,45.6875rem)]"

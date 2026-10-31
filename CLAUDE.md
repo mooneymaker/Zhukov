@@ -39,7 +39,8 @@ npm run check      # lint + типи + збірка, запускати пере
 | Типографіка (короткі слова не висять у кінці рядка) | `src/lib/typography.ts`, працює автоматично |
 | Фото | `public/images/` |
 | Живий помаранчевий фон (перший екран, оффер, фінал) | `src/components/gradient/`, див. `docs/CONTENT.md` |
-| Службовий скрипт (картинка фону) | `scripts/` |
+| Світло на фото в першій секції | `src/components/sections/hero/RelitPortrait.tsx` |
+| Службові скрипти (карта рельєфу, картинка фону) | `scripts/` |
 
 Покрокові приклади типових правок: `docs/CONTENT.md`.
 
