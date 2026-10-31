@@ -3,7 +3,7 @@ import { InView } from "@/components/motion/InView";
 import { Accordion } from "@/components/ui/Accordion";
 import { SplitButton } from "@/components/ui/SplitButton";
 import { getHome } from "@/lib/content";
-import portrait from "../../../public/images/faq-portrait.png";
+import portrait from "../../../public/images/faq-portrait.jpg";
 
 /** Десята секція: питання й відповіді та плашка про конфіденційність. */
 export async function Faq() {

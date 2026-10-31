@@ -5,7 +5,7 @@ import { InView } from "@/components/motion/InView";
 import { RevealWords } from "@/components/motion/RevealWords";
 import { StatValue } from "@/components/ui/StatValue";
 import { getHome } from "@/lib/content";
-import portrait from "../../../public/images/about-portrait.png";
+import portrait from "../../../public/images/about-portrait.jpg";
 
 const delay = (ms: number): CSSProperties => ({ animationDelay: `${ms}ms` });
 
@@ -56,19 +56,18 @@ export async function About() {
         </div>
       </InView>
 
-      {/* Портрет: на комп'ютері заходить під текст ліворуч, як у макеті;
-          на телефоні й планшеті стоїть у білій рамці */}
-      <div className="relative max-lg:aspect-[4/3] max-lg:overflow-hidden max-lg:rounded-md max-lg:bg-plate md:max-lg:aspect-[16/9] lg:-ml-[21.375rem] lg:aspect-[1130/1024] lg:h-full lg:shrink-0">
+      {/* Портрет у рамці: на комп'ютері вертикальний, посередині висоти екрана */}
+      <div className="relative overflow-hidden rounded-md max-lg:aspect-[4/3] md:max-lg:aspect-[16/9] lg:aspect-[4/5] lg:h-[76svh] lg:shrink-0 lg:self-center">
         <Image
           src={portrait}
           alt={about.portraitAlt}
-          sizes="(min-width: 75rem) 110svh, 100vw"
-          className="size-full object-cover object-top"
+          sizes="(min-width: 75rem) 61svh, 100vw"
+          className="size-full object-cover object-[50%_20%]"
         />
       </div>
 
       {/* Про команду */}
-      <InView className="relative z-10 flex flex-col gap-8 lg:ml-4 lg:w-[calc(54.9375rem+var(--spacing-gutter))] lg:shrink-0 lg:gap-[5svh] lg:pt-[12svh] lg:pr-gutter">
+      <InView className="relative z-10 flex flex-col gap-8 lg:ml-16 lg:w-[calc(54.9375rem+var(--spacing-gutter))] lg:shrink-0 lg:gap-[5svh] lg:pt-[12svh] lg:pr-gutter">
         <h2 className="text-display font-medium lg:text-[min(clamp(3rem,4.1667vw,5rem),7.4svh)]">
           <RevealWords text={about.team.heading} />
         </h2>

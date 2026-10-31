@@ -6,7 +6,7 @@ import { RevealWords } from "@/components/motion/RevealWords";
 import { Logo } from "@/components/ui/Logo";
 import { SplitButton } from "@/components/ui/SplitButton";
 import { getSite, getThanks } from "@/lib/content";
-import portrait from "../../../public/images/hero-portrait.png";
+import portrait from "../../../public/images/hero-portrait.jpg";
 
 // Сторінка подяки не потрібна в пошуку
 export const metadata: Metadata = {
@@ -39,11 +39,11 @@ export default async function ThanksPage() {
           </p>
         </div>
 
-        <div className="pointer-events-none relative w-full animate-[rise_1.4s_var(--ease-out-expo)_both] max-lg:order-last max-lg:mt-6 max-lg:aspect-[4/3] max-lg:overflow-hidden max-lg:rounded-md max-lg:bg-plate/20 md:max-lg:aspect-[16/9] lg:absolute lg:bottom-0 lg:left-[62.2%] lg:aspect-[1471/1280] lg:h-[92.6%] lg:max-h-[min(52.1vw,62.5rem)] lg:w-auto lg:-translate-x-1/2 lg:translate-y-[9.2%]">
+        <div className="pointer-events-none relative w-full animate-[rise_1.4s_var(--ease-out-expo)_both] overflow-hidden rounded-md max-lg:order-last max-lg:mt-6 max-lg:aspect-[4/3] md:max-lg:aspect-[16/9] lg:absolute lg:inset-y-gutter lg:right-gutter lg:aspect-[2/3] lg:w-auto">
           <Image
             src={portrait}
             alt={thanks.portraitAlt}
-            sizes="(min-width: 75rem) 60vw, 100vw"
+            sizes="(min-width: 75rem) 40vw, 100vw"
             preload
             className="size-full object-cover object-top"
           />

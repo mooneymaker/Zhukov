@@ -6,7 +6,7 @@ import { submitLead } from "@/app/actions/lead";
 import type { LeadForm } from "@/content/form";
 import type { LeadState } from "@/lib/lead";
 import { PhoneField } from "./PhoneField";
-import portrait from "../../../public/images/faq-portrait.png";
+import portrait from "../../../public/images/faq-portrait.jpg";
 
 const INITIAL: LeadState = { errors: {}, values: null };
 const FIELD =
