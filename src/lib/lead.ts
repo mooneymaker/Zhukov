@@ -1,39 +1,31 @@
 // Заявка з анкети: які поля в ній є і як вони перевіряються.
 // Файл спільний для сервера (перевірка й відправка) і форми в браузері.
 
-import { isFullPhone } from "./phone";
-
 export type LeadValues = {
   name: string;
   company: string;
-  companyUrl: string;
-  revenue: string;
   task: string;
-  telegram: string;
-  phone: string;
-  email: string;
+  contact: string;
   /** З якої кнопки відкрили анкету */
   source: string;
 };
 
-export type LeadErrorKey = "name" | "company" | "task" | "contacts" | "phone" | "email" | "form";
+export type LeadErrorKey = "name" | "task" | "contact" | "form";
 export type LeadErrors = Partial<Record<LeadErrorKey, string>>;
 
 export type LeadState = {
   errors: LeadErrors;
   /** Введені значення повертаються у форму, щоб після помилки нічого не зникло */
   values: LeadValues | null;
+  /** Заявку прийнято, у вікні можна показувати вибір часу */
+  sent?: boolean;
 };
 
 const LIMITS: Record<keyof LeadValues, number> = {
   name: 120,
-  company: 160,
-  companyUrl: 300,
-  revenue: 60,
+  company: 300,
   task: 3000,
-  telegram: 120,
-  phone: 40,
-  email: 160,
+  contact: 120,
   source: 120,
 };
 
@@ -52,11 +44,8 @@ export function validateLead(
 ): LeadErrors {
   const errors: LeadErrors = {};
   if (!values.name) errors.name = messages.name;
-  if (!values.company) errors.company = messages.company;
   if (values.task.length < 5) errors.task = messages.task;
-  if (!values.telegram && !values.phone && !values.email) errors.contacts = messages.contacts;
-  if (values.phone && !isFullPhone(values.phone)) errors.phone = messages.phone;
-  if (values.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)) errors.email = messages.email;
+  if (!values.contact) errors.contact = messages.contact;
   return errors;
 }
 
@@ -67,17 +56,12 @@ export function formatLead(values: LeadValues): string {
     values.source ? `Кнопка: ${values.source}` : "",
     "",
     `Ім'я: ${values.name}`,
-    `Компанія: ${values.company}`,
-    values.companyUrl ? `Сайт чи соцмережі: ${values.companyUrl}` : "",
-    values.revenue ? `Виручка на місяць: ${values.revenue}` : "",
+    values.company ? `Компанія: ${values.company}` : "",
     "",
     "Задача:",
     values.task,
     "",
-    "Контакти:",
-    values.telegram ? `Telegram: ${values.telegram}` : "",
-    values.phone ? `Телефон: ${values.phone}` : "",
-    values.email ? `Email: ${values.email}` : "",
+    `Контакт: ${values.contact}`,
   ];
   return lines
     .filter((line, index) => line !== "" || lines[index - 1] !== "")

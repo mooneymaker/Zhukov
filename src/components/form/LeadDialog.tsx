@@ -1,11 +1,12 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useActionState, useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { submitLead } from "@/app/actions/lead";
 import type { LeadForm } from "@/content/form";
 import type { LeadState } from "@/lib/lead";
-import { PhoneField } from "./PhoneField";
+import { BookingEmbed } from "./BookingEmbed";
 import portrait from "../../../public/images/faq-portrait.png";
 
 const INITIAL: LeadState = { errors: {}, values: null };
@@ -14,6 +15,8 @@ const FIELD =
 
 type Props = {
   content: LeadForm;
+  /** Шлях запису в TidyCal для другого кроку */
+  bookingPath: string;
   /** Кнопка відправки у двох станах: звичайна і «надсилаю» */
   submit: ReactNode;
   submitPending: ReactNode;
@@ -23,9 +26,10 @@ type Props = {
  * Анкета у спливному вікні. Стоїть на сторінці один раз і відкривається
  * кліком по будь-якому елементу з атрибутом data-lead-open (його ставить
  * SplitButton). Значення атрибута приходить разом із заявкою як назва кнопки.
- * На телефоні вікно виїжджає знизу аркушем.
+ * На телефоні вікно виїжджає знизу аркушем. Після відправки в тому самому
+ * вікні з'являється календар для вибору часу.
  */
-export function LeadDialog({ content, submit, submitPending }: Props) {
+export function LeadDialog({ content, bookingPath, submit, submitPending }: Props) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const openedAt = useRef(0);
@@ -33,7 +37,7 @@ export function LeadDialog({ content, submit, submitPending }: Props) {
   const [source, setSource] = useState("");
   const [state, action, pending] = useActionState(submitLead, INITIAL);
   const id = useId();
-  const { errors, values } = state;
+  const { errors, values, sent } = state;
 
   useEffect(() => {
     const onClick = (event: MouseEvent) => {
@@ -53,6 +57,11 @@ export function LeadDialog({ content, submit, submitPending }: Props) {
     document.addEventListener("click", onClick);
     return () => document.removeEventListener("click", onClick);
   }, []);
+
+  // Новий крок починається згори вікна
+  useEffect(() => {
+    if (sent && dialogRef.current) dialogRef.current.scrollTop = 0;
+  }, [sent]);
 
   const close = () => dialogRef.current?.close();
 
@@ -75,147 +84,110 @@ export function LeadDialog({ content, submit, submitPending }: Props) {
           tabIndex={-1}
           className="lead-panel relative w-full rounded-t-md bg-ink p-2 md:w-[45.6875rem] md:rounded-md"
         >
-          <form
-            action={action}
-            noValidate
-            onSubmit={() => {
-              if (elapsedRef.current) {
-                elapsedRef.current.value = String(Math.round(performance.now() - openedAt.current));
-              }
-            }}
-            className="flex flex-col gap-2"
-          >
-            <div className="flex flex-col gap-8 p-4 pt-6 md:p-8">
-              <div className="flex items-start justify-between gap-6">
-                <h2 id={`${id}-title`} className="text-h4 leading-none font-semibold max-md:pr-14 md:max-w-[9.5em]">
-                  {content.title}
+          {sent ? (
+            <div className="flex flex-col gap-6 p-2 pt-6 md:p-4">
+              <div className="flex flex-col gap-2 max-md:pr-14">
+                <h2 id={`${id}-title`} className="text-h4 leading-none font-semibold">
+                  {content.booking.title}
                 </h2>
-                <Image
-                  src={portrait}
-                  alt={content.imageAlt}
-                  sizes="80px"
-                  className="size-20 shrink-0 rounded-sm object-cover max-md:hidden"
-                />
+                <p className="text-base">{content.booking.text}</p>
+              </div>
+              <BookingEmbed path={bookingPath} name={values?.name ?? ""} />
+              <Link href="/thanks" className="self-center py-2 text-base underline underline-offset-4">
+                {content.booking.laterLabel}
+              </Link>
+            </div>
+          ) : (
+            <form
+              action={action}
+              noValidate
+              onSubmit={() => {
+                if (elapsedRef.current) {
+                  elapsedRef.current.value = String(Math.round(performance.now() - openedAt.current));
+                }
+              }}
+              className="flex flex-col gap-2"
+            >
+              <div className="flex flex-col gap-8 p-4 pt-6 md:p-8">
+                <div className="flex items-start justify-between gap-6">
+                  <h2 id={`${id}-title`} className="text-h4 leading-none font-semibold max-md:pr-14 md:max-w-[9.5em]">
+                    {content.title}
+                  </h2>
+                  <Image
+                    src={portrait}
+                    alt={content.imageAlt}
+                    sizes="80px"
+                    className="size-20 shrink-0 rounded-sm object-cover max-md:hidden"
+                  />
+                </div>
+
+                <Group label={content.name.label} htmlFor={`${id}-name`} error={errors.name}>
+                  <input
+                    id={`${id}-name`}
+                    name="name"
+                    autoComplete="name"
+                    placeholder={content.name.placeholder}
+                    defaultValue={values?.name}
+                    aria-invalid={Boolean(errors.name)}
+                    className={`${FIELD} h-16`}
+                  />
+                </Group>
+
+                <Group label={content.company.label} htmlFor={`${id}-company`}>
+                  <input
+                    id={`${id}-company`}
+                    name="company"
+                    autoComplete="organization"
+                    placeholder={content.company.placeholder}
+                    defaultValue={values?.company}
+                    className={`${FIELD} h-16`}
+                  />
+                </Group>
+
+                <Group label={content.task.label} htmlFor={`${id}-task`} error={errors.task}>
+                  <textarea
+                    id={`${id}-task`}
+                    name="task"
+                    placeholder={content.task.placeholder}
+                    defaultValue={values?.task}
+                    aria-invalid={Boolean(errors.task)}
+                    className={`${FIELD} h-32 resize-none py-5`}
+                  />
+                </Group>
+
+                <Group label={content.contact.label} htmlFor={`${id}-contact`} error={errors.contact}>
+                  <input
+                    id={`${id}-contact`}
+                    name="contact"
+                    placeholder={content.contact.placeholder}
+                    defaultValue={values?.contact}
+                    aria-invalid={Boolean(errors.contact)}
+                    className={`${FIELD} h-16`}
+                  />
+                </Group>
+
+                <p className="text-sm text-page/70">{content.privacy}</p>
+                {errors.form ? (
+                  <p role="alert" className="text-base text-accent">
+                    {errors.form}
+                  </p>
+                ) : null}
               </div>
 
-              <Group label={content.name.label} htmlFor={`${id}-name`} error={errors.name}>
-                <input
-                  id={`${id}-name`}
-                  name="name"
-                  autoComplete="name"
-                  placeholder={content.name.placeholder}
-                  defaultValue={values?.name}
-                  aria-invalid={Boolean(errors.name)}
-                  className={`${FIELD} h-16`}
-                />
-              </Group>
+              {/* Службові поля: назва кнопки, час заповнення і пастка для ботів */}
+              <input type="hidden" name="source" value={source} />
+              <input ref={elapsedRef} type="hidden" name="elapsed" defaultValue="0" />
+              <input
+                name="website"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden
+                className="absolute size-px opacity-0"
+              />
 
-              <Group label={content.company.label} htmlFor={`${id}-company`} error={errors.company}>
-                <input
-                  id={`${id}-company`}
-                  name="company"
-                  autoComplete="organization"
-                  placeholder={content.company.placeholder}
-                  defaultValue={values?.company}
-                  aria-invalid={Boolean(errors.company)}
-                  className={`${FIELD} h-16`}
-                />
-                <input
-                  name="companyUrl"
-                  inputMode="url"
-                  aria-label={content.company.urlPlaceholder}
-                  placeholder={content.company.urlPlaceholder}
-                  defaultValue={values?.companyUrl}
-                  className={`${FIELD} h-16`}
-                />
-              </Group>
-
-              <Group label={content.revenue.label} htmlFor={`${id}-revenue`}>
-                <div className="relative">
-                  <select
-                    id={`${id}-revenue`}
-                    name="revenue"
-                    defaultValue={values?.revenue ?? ""}
-                    className={`${FIELD} h-16 cursor-pointer appearance-none pr-14`}
-                  >
-                    {/* Без значення за замовчуванням: людина обирає сама. Поле
-                        необов'язкове, порожнє просто не потрапляє в заявку */}
-                    <option value="" disabled>
-                      {content.revenue.placeholder}
-                    </option>
-                    {content.revenue.options.map((option) => (
-                      <option key={option}>{option}</option>
-                    ))}
-                  </select>
-                  <svg
-                    viewBox="0 0 16 16"
-                    fill="currentColor"
-                    aria-hidden
-                    className="pointer-events-none absolute top-1/2 right-6 size-4 -translate-y-1/2"
-                  >
-                    <path d="M13.35 6.35 8.35 11.35a.5.5 0 0 1-.7 0L2.65 6.35A.5.5 0 0 1 3 5.5h10a.5.5 0 0 1 .35.85Z" />
-                  </svg>
-                </div>
-              </Group>
-
-              <Group label={content.task.label} htmlFor={`${id}-task`} error={errors.task}>
-                <textarea
-                  id={`${id}-task`}
-                  name="task"
-                  placeholder={content.task.placeholder}
-                  defaultValue={values?.task}
-                  aria-invalid={Boolean(errors.task)}
-                  className={`${FIELD} h-49 resize-none py-6`}
-                />
-              </Group>
-
-              <Group label={content.contacts.label} error={errors.contacts ?? errors.phone ?? errors.email}>
-                <input
-                  name="telegram"
-                  aria-label={content.contacts.telegram}
-                  placeholder={content.contacts.telegram}
-                  defaultValue={values?.telegram}
-                  aria-invalid={Boolean(errors.contacts)}
-                  className={`${FIELD} h-16`}
-                />
-                <PhoneField
-                  label={content.contacts.phone}
-                  invalid={Boolean(errors.contacts ?? errors.phone)}
-                  className={`${FIELD} h-16`}
-                />
-                <input
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  aria-label={content.contacts.email}
-                  placeholder={content.contacts.email}
-                  defaultValue={values?.email}
-                  aria-invalid={Boolean(errors.contacts ?? errors.email)}
-                  className={`${FIELD} h-16`}
-                />
-              </Group>
-
-              <p className="text-sm text-page/70">{content.privacy}</p>
-              {errors.form ? (
-                <p role="alert" className="text-base text-accent">
-                  {errors.form}
-                </p>
-              ) : null}
-            </div>
-
-            {/* Службові поля: назва кнопки, час заповнення і пастка для ботів */}
-            <input type="hidden" name="source" value={source} />
-            <input ref={elapsedRef} type="hidden" name="elapsed" defaultValue="0" />
-            <input
-              name="website"
-              tabIndex={-1}
-              autoComplete="off"
-              aria-hidden
-              className="absolute size-px opacity-0"
-            />
-
-            {pending ? submitPending : submit}
-          </form>
+              {pending ? submitPending : submit}
+            </form>
+          )}
 
           <button
             type="button"

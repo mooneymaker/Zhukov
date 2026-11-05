@@ -1,6 +1,5 @@
 "use server";
 
-import { redirect } from "next/navigation";
 import { getForm } from "@/lib/content";
 import { formatLead, readLead, validateLead, type LeadState } from "@/lib/lead";
 import { sendToTelegram } from "@/lib/telegram";
@@ -8,7 +7,7 @@ import { sendToTelegram } from "@/lib/telegram";
 // Людина не встигне заповнити анкету швидше, а бот заповнює миттєво
 const MIN_FILL_TIME = 2500;
 
-/** Приймає анкету: перевіряє, надсилає в Telegram і веде на сторінку подяки. */
+/** Приймає анкету: перевіряє, надсилає в Telegram і відкриває вибір часу. */
 export async function submitLead(_previous: LeadState, formData: FormData): Promise<LeadState> {
   const values = readLead(formData);
 
@@ -17,7 +16,7 @@ export async function submitLead(_previous: LeadState, formData: FormData): Prom
   const trap = formData.get("website");
   const elapsed = Number(formData.get("elapsed"));
   if ((typeof trap === "string" && trap !== "") || !(elapsed >= MIN_FILL_TIME)) {
-    redirect("/thanks");
+    return { errors: {}, values, sent: true };
   }
 
   const { errors: messages } = await getForm();
@@ -31,5 +30,5 @@ export async function submitLead(_previous: LeadState, formData: FormData): Prom
     return { errors: { form: messages.form }, values };
   }
 
-  redirect("/thanks");
+  return { errors: {}, values, sent: true };
 }
