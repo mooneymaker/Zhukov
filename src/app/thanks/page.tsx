@@ -20,7 +20,7 @@ const delay = (ms: number): CSSProperties => ({ animationDelay: `${ms}ms` });
 /** Сторінка, на яку людина потрапляє після відправки анкети. */
 export default async function ThanksPage() {
   const [thanks, site] = await Promise.all([getThanks(), getSite()]);
-  const telegram = site.contacts.telegram;
+  const { telegram, booking } = site.contacts;
 
   return (
     <main className="relative isolate overflow-hidden bg-accent text-ink">
@@ -66,8 +66,9 @@ export default async function ThanksPage() {
               ))}
             </ol>
           </div>
+          {booking ? <SplitButton href={booking}>{thanks.bookingLabel}</SplitButton> : null}
           {telegram ? (
-            <SplitButton href={telegram} icon="telegram">
+            <SplitButton href={telegram} icon="telegram" variant={booking ? "light" : "dark"}>
               {thanks.buttonLabel}
             </SplitButton>
           ) : (

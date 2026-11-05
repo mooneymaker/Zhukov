@@ -5,6 +5,8 @@ export type Thanks = {
   text: string;
   stepsTitle: string;
   steps: string[];
+  /** Кнопка веде на запис у календар із src/content/site.ts */
+  bookingLabel: string;
   /** Кнопка веде в Telegram із src/content/site.ts */
   buttonLabel: string;
   /** Підпис кнопки, поки посилання на Telegram не задане */
@@ -18,9 +20,10 @@ export const thanks: Thanks = {
   stepsTitle: "Що далі?",
   steps: [
     "Ознайомлюся з вашою компанією та запитом.",
-    "Зв'яжуся з вами й домовимося про безкоштовне знайомство на 20–30 хвилин.",
+    "Оберіть зручний час для безкоштовного знайомства на 20–30 хвилин.",
     "Запропоную формат роботи, якщо побачу, що можу бути корисним.",
   ],
+  bookingLabel: "Обрати час для знайомства",
   buttonLabel: "Написати в Telegram",
   homeLabel: "Повернутися на головну",
   portraitAlt: "Артур Жуков",

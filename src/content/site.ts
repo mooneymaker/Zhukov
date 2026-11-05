@@ -13,6 +13,8 @@ export type Site = {
   contacts: {
     telegram: string;
     whatsapp: string;
+    /** Запис на безкоштовне знайомство в TidyCal, кнопка на сторінці подяки */
+    booking: string;
   };
   /** Сторінка для адрес, яких на сайті немає (404) */
   notFound: {
@@ -33,6 +35,7 @@ export const site: Site = {
   contacts: {
     telegram: "https://t.me/zhukov_9999",
     whatsapp: "https://wa.me/380779990169",
+    booking: "https://tidycal.com/jukovarthur/znayomstvo",
   },
   notFound: {
     title: "Сторінку не знайдено",
