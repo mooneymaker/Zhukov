@@ -25,7 +25,7 @@ export default async function ThanksPage() {
   return (
     <main className="relative isolate overflow-hidden bg-accent text-ink">
       <GradientBackdrop />
-      <div className="relative mx-auto flex max-w-site flex-col px-gutter py-gutter lg:h-svh lg:min-h-[42rem]">
+      <div className="relative mx-auto flex max-w-site flex-col px-gutter py-gutter lg:min-h-svh">
         <div className="relative z-10 animate-rise self-start" style={delay(100)}>
           <Logo name={site.name} role={site.role} className="text-h5" />
         </div>
@@ -50,7 +50,7 @@ export default async function ThanksPage() {
         </div>
 
         <div
-          className="relative z-10 flex animate-rise flex-col gap-2 rounded-md bg-page p-2 max-lg:mt-8 lg:w-[clamp(28rem,38.07vw,45.6875rem)]"
+          className="relative z-10 flex animate-rise flex-col gap-2 mt-8 rounded-md bg-page p-2 lg:w-[clamp(28rem,38.07vw,45.6875rem)]"
           style={delay(650)}
         >
           <div className="flex flex-col gap-4 p-4 md:p-6">
