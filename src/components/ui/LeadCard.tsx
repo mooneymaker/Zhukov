@@ -8,7 +8,7 @@ type Props = {
   className?: string;
 };
 
-/** Світла плашка із закликом і кнопкою, що відкриває запис на знайомство. */
+/** Світла плашка із закликом і кнопкою, що відкриває вікно заявки. */
 export function LeadCard({ text, hint, buttonLabel, className }: Props) {
   return (
     <div className={`flex flex-col gap-2 rounded-md bg-page p-2 ${className ?? ""}`}>
