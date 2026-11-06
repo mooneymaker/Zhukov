@@ -24,7 +24,7 @@ export const privacy: Privacy = {
     },
     {
       heading: "Who we share it with",
-      text: "We share data only with service providers that help us run this website and our communication: Vercel (hosting), Telegram (delivery of requests), TidyCal (call booking) and Google (calendar and video calls). These providers may process data outside your country, including in the United States. Where required, such transfers rely on appropriate safeguards. We may also disclose data if the law requires it.",
+      text: "We share data only with service providers that help us run this website and our communication: Vercel (hosting and analytics), Telegram (delivery of requests), TidyCal (call booking) and Google (calendar and video calls). These providers may process data outside your country, including in the United States. Where required, such transfers rely on appropriate safeguards. We may also disclose data if the law requires it.",
     },
     {
       heading: "How long we keep it",
@@ -35,8 +35,8 @@ export const privacy: Privacy = {
       text: "Depending on where you live, you may have the right to access, correct or delete your data, restrict or object to its use, receive a copy of it, and withdraw consent. To use these rights, contact us on Telegram. You may also complain to your local data protection authority.",
     },
     {
-      heading: "Cookies",
-      text: "This website does not use advertising or analytics cookies. If that changes, we will update this policy. The booking service, when you open it, may use its own cookies.",
+      heading: "Cookies and analytics",
+      text: "This website does not use advertising cookies. We use Vercel Web Analytics to count visits. It works without cookies and does not store personal information. If that changes, we will update this policy. The booking service, when you open it, may use its own cookies.",
     },
     {
       heading: "Changes",

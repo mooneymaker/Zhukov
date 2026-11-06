@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter_Tight } from "next/font/google";
+import Script from "next/script";
 import { FocusModality } from "@/components/form/FocusModality";
 import { getSite } from "@/lib/content";
 import { allowIndexing, siteUrl } from "@/lib/env";
@@ -47,6 +48,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body>
         {children}
         <FocusModality />
+        {/* Vercel Web Analytics: без cookie, статистика в кабінеті Vercel */}
+        <Script src="/_vercel/insights/script.js" strategy="afterInteractive" />
       </body>
     </html>
   );

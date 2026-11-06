@@ -27,11 +27,11 @@ export type Site = {
 
 export const site: Site = {
   name: "Артур Жуков",
-  role: "Brand & Growth Advisor",
-  title: "Артур Жуков, Brand & Growth Advisor: де бізнес може заробляти більше",
+  role: "Зовнішній CGO",
+  title: "Артур Жуков, зовнішній CGO: де бізнес може заробляти більше",
   description:
     "Заходжу в бізнес як зовнішній CGO: показую, де ви недозаробляєте, посилюю бренд, продукт і продажі та керую впровадженням.",
-  shareImageAlt: "Артур Жуков, Brand & Growth Advisor. Покажіть цифри, знайдемо, де ваш бізнес може заробляти більше",
+  shareImageAlt: "Артур Жуков, зовнішній CGO. Покажіть цифри, знайдемо, де ваш бізнес може заробляти більше",
   contacts: {
     telegram: "https://t.me/zhukov_9999",
     whatsapp: "https://wa.me/380779990169",
