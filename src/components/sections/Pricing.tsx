@@ -10,7 +10,7 @@ import cardDark from "../../../public/images/card-dark.png";
 
 const delay = (ms: number): CSSProperties => ({ animationDelay: `${ms}ms` });
 
-/** Дев'ята секція: три формати роботи з цінами. */
+/** Дев'ята секція: чотири формати роботи з цінами. */
 export async function Pricing() {
   const { pricing } = await getHome();
 
@@ -23,11 +23,11 @@ export async function Pricing() {
           </h2>
         </InView>
 
-        {/* На комп'ютері три картки ділять спільні ряди (subgrid): опис, кнопка,
-            примітка. Тому кнопки стоять на одному рівні, навіть якщо тексти
-            в картках різної довжини */}
+        {/* На комп'ютері картки стоять по дві й ділять спільні ряди (subgrid):
+            опис, кнопка, примітка. Тому кнопки стоять на одному рівні, навіть
+            якщо тексти в картках різної довжини */}
         <InView
-          className="grid w-full gap-4 lg:grid-cols-3 lg:grid-rows-[1fr_auto_auto] lg:gap-[1.0625rem]"
+          className="grid w-full gap-4 lg:grid-cols-2 lg:grid-rows-[1fr_auto_auto_1fr_auto_auto] lg:gap-[1.0625rem]"
           threshold={0.15}
         >
           {pricing.plans.map((plan, index) => (
@@ -45,7 +45,7 @@ export async function Pricing() {
                   src={cardDark}
                   alt=""
                   fill
-                  sizes="(min-width: 75rem) 33vw, 100vw"
+                  sizes="(min-width: 75rem) 50vw, 100vw"
                   className="-z-10 object-cover"
                 />
               )}
