@@ -129,7 +129,7 @@ export const home: Home = {
     ctaLabel: "Знайти, де заробити більше",
     stats: [
       { value: "$1 млн+", label: "щомісячний оборот бізнесу, зростанням якого я керував" },
-      { value: "Forbes", label: "там писали про бренд Receptor.AI, який я будував" },
+      { value: "Forbes", label: "про бренд Receptor.AI, який я будував" },
     ],
     experience: {
       value: "17 років",
