@@ -28,15 +28,13 @@ export async function Faq() {
                 className="object-cover"
               />
             </div>
-            <div className="flex flex-col justify-between gap-8">
-              <div className="flex flex-col gap-4 p-4 md:p-8">
-                <h2 className="text-h4 leading-none font-semibold">{faq.card.title}</h2>
-                <p className="text-base">{faq.card.text}</p>
-              </div>
-              <SplitButton variant="accent" lead={faq.card.title}>
-                {faq.card.buttonLabel}
-              </SplitButton>
+            <div className="flex flex-col gap-4 p-4 md:p-8">
+              <h2 className="text-h4 leading-none font-semibold">{faq.card.title}</h2>
+              <p className="text-base">{faq.card.text}</p>
             </div>
+            <SplitButton variant="accent" lead={faq.card.title} className="md:col-span-2">
+              {faq.card.buttonLabel}
+            </SplitButton>
           </div>
         </InView>
       </div>

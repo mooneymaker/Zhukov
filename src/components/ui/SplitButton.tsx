@@ -76,7 +76,7 @@ export function SplitButton({
 
   const content = (
     <>
-      <span className={`flex ${HEIGHT} min-w-0 flex-1 items-center justify-center px-6 text-center ${block}`}>
+      <span className={`flex ${HEIGHT} min-w-0 flex-1 items-center justify-center px-4 text-center ${block}`}>
         <span
           aria-hidden
           className={`absolute inset-0 translate-y-[101%] delay-75 ${look.fill} ${MOVE} group-hover:translate-y-0 group-focus-visible:translate-y-0`}
