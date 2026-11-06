@@ -9,6 +9,7 @@
 
 import { form, type LeadForm } from "@/content/form";
 import { home, type Home } from "@/content/home";
+import { privacy, type Privacy } from "@/content/privacy";
 import { site, type Site } from "@/content/site";
 import { typesetDeep } from "./typography";
 
@@ -23,6 +24,10 @@ export async function getSite(): Promise<Site> {
 
 export async function getHome(): Promise<Home> {
   return preparedHome;
+}
+
+export async function getPrivacy(): Promise<Privacy> {
+  return privacy;
 }
 
 export async function getForm(): Promise<LeadForm> {

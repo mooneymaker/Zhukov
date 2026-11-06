@@ -158,8 +158,10 @@ export function LiveGradient({ className }: { className?: string }) {
 }
 
 function start(canvas: HTMLCanvasElement): () => void {
+  // Прозорий холст: поки кадр не намальовано, крізь нього видно картинку фону,
+  // а не чорний прямокутник. Сам градієнт малюється непрозорим
   const gl = canvas.getContext("webgl2", {
-    alpha: false,
+    alpha: true,
     antialias: false,
     powerPreference: "low-power",
   });

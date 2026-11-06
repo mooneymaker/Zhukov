@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { GradientBackdrop } from "@/components/gradient/GradientBackdrop";
 import { InView } from "@/components/motion/InView";
 import { RevealWords } from "@/components/motion/RevealWords";
@@ -66,8 +67,11 @@ export async function FinalCta() {
               )}
             </div>
           </div>
-          <div className="mt-10 animate-rise self-start lg:mt-16" style={delay(550)}>
+          <div className="mt-10 flex animate-rise items-end justify-between gap-6 lg:mt-16" style={delay(550)}>
             <Logo name={site.name} role={site.role} className="text-h5" />
+            <Link href="/privacy" className="text-sm text-ink/50 transition-colors duration-300 hover:text-ink">
+              {final.privacyLabel}
+            </Link>
           </div>
         </InView>
       </div>

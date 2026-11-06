@@ -12,7 +12,7 @@ import {
 import { sendToTelegram } from "@/lib/telegram";
 
 // Людина не встигне заповнити анкету швидше, а бот заповнює миттєво
-const MIN_FILL_TIME = 1500;
+const MIN_FILL_TIME = 800;
 
 /** Приймає заявку: перевіряє й надсилає в Telegram. */
 export async function submitLead(_previous: LeadState, formData: FormData): Promise<LeadState> {

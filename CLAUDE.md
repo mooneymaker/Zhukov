@@ -34,6 +34,7 @@ npm run check      # lint + типи + збірка, запускати пере
 | Перевірка заявки й текст повідомлення | `src/lib/lead.ts` |
 | Відправка заявки в Telegram | `src/app/actions/lead.ts`, `src/lib/telegram.ts` |
 | Посилання на запис | `contacts.booking` у `src/content/site.ts`, сама зустріч у кабінеті TidyCal |
+| Політика конфіденційності | `src/content/privacy.ts`, сторінка `src/app/privacy/page.tsx` |
 | Заголовок і опис для пошуковиків, картинка для поширення, сторінка 404 | `src/content/site.ts`, `public/images/share.jpg`, див. `docs/CONTENT.md` |
 | Метадані, карта сайту, правила для роботів, дані schema.org | `src/app/layout.tsx`, `src/app/sitemap.ts`, `src/app/robots.ts`, `src/components/seo/StructuredData.tsx` |
 | Типографіка (короткі слова не висять у кінці рядка) | `src/lib/typography.ts`, працює автоматично |

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useActionState, useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { submitLead, submitLeadDetails } from "@/app/actions/lead";
 import type { LeadForm } from "@/content/form";
@@ -200,6 +201,12 @@ export function LeadDialog({
                 {pending ? submitPending : submit}
               </form>
               {calendarButton}
+              <p className="pt-1 pb-2 text-center text-sm text-page/50">
+                {content.privacy.text}{" "}
+                <Link href="/privacy" target="_blank" className="underline underline-offset-2">
+                  {content.privacy.linkLabel}
+                </Link>
+              </p>
             </>
           )}
 
