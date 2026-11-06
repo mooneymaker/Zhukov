@@ -10,12 +10,10 @@
 import { form, type LeadForm } from "@/content/form";
 import { home, type Home } from "@/content/home";
 import { site, type Site } from "@/content/site";
-import { thanks, type Thanks } from "@/content/thanks";
 import { typesetDeep } from "./typography";
 
 const preparedHome = typesetDeep(home);
 const preparedForm = typesetDeep(form);
-const preparedThanks = typesetDeep(thanks);
 // Назва й опис для пошуковиків лишаються як є, типографіка лише для текстів на екрані
 const preparedSite = { ...site, notFound: typesetDeep(site.notFound) };
 
@@ -29,8 +27,4 @@ export async function getHome(): Promise<Home> {
 
 export async function getForm(): Promise<LeadForm> {
   return preparedForm;
-}
-
-export async function getThanks(): Promise<Thanks> {
-  return preparedThanks;
 }

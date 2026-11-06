@@ -1,56 +1,36 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
-import { useActionState, useEffect, useId, useRef, useState, type ReactNode } from "react";
-import { submitLead } from "@/app/actions/lead";
+import { useEffect, useId, useRef, useState } from "react";
 import type { LeadForm } from "@/content/form";
-import type { LeadState } from "@/lib/lead";
 import { BookingEmbed } from "./BookingEmbed";
-import portrait from "../../../public/images/faq-portrait.png";
-
-const INITIAL: LeadState = { errors: {}, values: null };
-const FIELD =
-  "w-full rounded-sm bg-field px-6 text-base text-page placeholder:text-page/70 transition-[background-color] duration-300 hover:bg-[#525352]";
 
 type Props = {
   content: LeadForm;
-  /** Шлях запису в TidyCal для другого кроку */
+  /** Шлях запису в TidyCal */
   bookingPath: string;
-  /** Кнопка відправки у двох станах: звичайна і «надсилаю» */
-  submit: ReactNode;
-  submitPending: ReactNode;
 };
 
 /**
- * Анкета у спливному вікні. Стоїть на сторінці один раз і відкривається
- * кліком по будь-якому елементу з атрибутом data-lead-open (його ставить
- * SplitButton). Значення атрибута приходить разом із заявкою як назва кнопки.
- * На телефоні вікно виїжджає знизу аркушем. Після відправки в тому самому
- * вікні з'являється календар для вибору часу.
+ * Запис на знайомство у спливному вікні. Стоїть на сторінці один раз
+ * і відкривається кліком по будь-якому елементу з атрибутом data-lead-open
+ * (його ставить SplitButton). Календар вантажиться лише після першого кліку.
+ * На телефоні вікно виїжджає знизу аркушем.
  */
-export function LeadDialog({ content, bookingPath, submit, submitPending }: Props) {
+export function LeadDialog({ content, bookingPath }: Props) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
-  const openedAt = useRef(0);
-  const elapsedRef = useRef<HTMLInputElement>(null);
-  const [source, setSource] = useState("");
-  const [state, action, pending] = useActionState(submitLead, INITIAL);
+  const [opened, setOpened] = useState(false);
   const id = useId();
-  const { errors, values, sent } = state;
 
   useEffect(() => {
     const onClick = (event: MouseEvent) => {
       const trigger = (event.target as Element | null)?.closest?.("[data-lead-open]");
       if (!trigger) return;
       event.preventDefault();
-      setSource(trigger.getAttribute("data-lead-open") ?? "");
-      openedAt.current = performance.now();
+      setOpened(true);
       const dialog = dialogRef.current;
       if (!dialog) return;
       dialog.showModal();
-      // Фокус на саме вікно, а не на перше поле: інакше на телефоні одразу
-      // вискакує клавіатура, а вікно, що ще виїжджає, прокручується до кінця
       panelRef.current?.focus({ preventScroll: true });
       dialog.scrollTop = 0;
     };
@@ -58,18 +38,13 @@ export function LeadDialog({ content, bookingPath, submit, submitPending }: Prop
     return () => document.removeEventListener("click", onClick);
   }, []);
 
-  // Новий крок починається згори вікна
-  useEffect(() => {
-    if (sent && dialogRef.current) dialogRef.current.scrollTop = 0;
-  }, [sent]);
-
   const close = () => dialogRef.current?.close();
 
   return (
     <dialog
       ref={dialogRef}
       aria-labelledby={`${id}-title`}
-      // Клік повз вікно (по затемненню) закриває анкету
+      // Клік повз вікно (по затемненню) закриває його
       onClick={(event) => {
         if (event.target === event.currentTarget || (event.target as Element).hasAttribute("data-backdrop")) close();
       }}
@@ -84,110 +59,15 @@ export function LeadDialog({ content, bookingPath, submit, submitPending }: Prop
           tabIndex={-1}
           className="lead-panel relative w-full rounded-t-md bg-ink p-2 md:w-[45.6875rem] md:rounded-md"
         >
-          {sent ? (
-            <div className="flex flex-col gap-6 p-2 pt-6 md:p-4">
-              <div className="flex flex-col gap-2 max-md:pr-14">
-                <h2 id={`${id}-title`} className="text-h4 leading-none font-semibold">
-                  {content.booking.title}
-                </h2>
-                <p className="text-base">{content.booking.text}</p>
-              </div>
-              <BookingEmbed path={bookingPath} name={values?.name ?? ""} />
-              <Link href="/thanks" className="self-center py-2 text-base underline underline-offset-4">
-                {content.booking.laterLabel}
-              </Link>
+          <div className="flex flex-col gap-6 p-2 pt-6 md:p-4">
+            <div className="flex flex-col gap-2 max-md:pr-14">
+              <h2 id={`${id}-title`} className="text-h4 leading-none font-semibold">
+                {content.title}
+              </h2>
+              <p className="text-base">{content.text}</p>
             </div>
-          ) : (
-            <form
-              action={action}
-              noValidate
-              onSubmit={() => {
-                if (elapsedRef.current) {
-                  elapsedRef.current.value = String(Math.round(performance.now() - openedAt.current));
-                }
-              }}
-              className="flex flex-col gap-2"
-            >
-              <div className="flex flex-col gap-8 p-4 pt-6 md:p-8">
-                <div className="flex items-start justify-between gap-6">
-                  <h2 id={`${id}-title`} className="text-h4 leading-none font-semibold max-md:pr-14 md:max-w-[9.5em]">
-                    {content.title}
-                  </h2>
-                  <Image
-                    src={portrait}
-                    alt={content.imageAlt}
-                    sizes="80px"
-                    className="size-20 shrink-0 rounded-sm object-cover max-md:hidden"
-                  />
-                </div>
-
-                <Group label={content.name.label} htmlFor={`${id}-name`} error={errors.name}>
-                  <input
-                    id={`${id}-name`}
-                    name="name"
-                    autoComplete="name"
-                    placeholder={content.name.placeholder}
-                    defaultValue={values?.name}
-                    aria-invalid={Boolean(errors.name)}
-                    className={`${FIELD} h-16`}
-                  />
-                </Group>
-
-                <Group label={content.company.label} htmlFor={`${id}-company`}>
-                  <input
-                    id={`${id}-company`}
-                    name="company"
-                    autoComplete="organization"
-                    placeholder={content.company.placeholder}
-                    defaultValue={values?.company}
-                    className={`${FIELD} h-16`}
-                  />
-                </Group>
-
-                <Group label={content.task.label} htmlFor={`${id}-task`} error={errors.task}>
-                  <textarea
-                    id={`${id}-task`}
-                    name="task"
-                    placeholder={content.task.placeholder}
-                    defaultValue={values?.task}
-                    aria-invalid={Boolean(errors.task)}
-                    className={`${FIELD} h-32 resize-none py-5`}
-                  />
-                </Group>
-
-                <Group label={content.contact.label} htmlFor={`${id}-contact`} error={errors.contact}>
-                  <input
-                    id={`${id}-contact`}
-                    name="contact"
-                    placeholder={content.contact.placeholder}
-                    defaultValue={values?.contact}
-                    aria-invalid={Boolean(errors.contact)}
-                    className={`${FIELD} h-16`}
-                  />
-                </Group>
-
-                <p className="text-sm text-page/70">{content.privacy}</p>
-                {errors.form ? (
-                  <p role="alert" className="text-base text-accent">
-                    {errors.form}
-                  </p>
-                ) : null}
-              </div>
-
-              {/* Службові поля: назва кнопки, час заповнення і пастка для ботів */}
-              <input type="hidden" name="source" value={source} />
-              <input ref={elapsedRef} type="hidden" name="elapsed" defaultValue="0" />
-              <input
-                name="website"
-                tabIndex={-1}
-                autoComplete="off"
-                aria-hidden
-                className="absolute size-px opacity-0"
-              />
-
-              {pending ? submitPending : submit}
-            </form>
-          )}
+            {opened ? <BookingEmbed path={bookingPath} /> : null}
+          </div>
 
           <button
             type="button"
@@ -209,35 +89,5 @@ export function LeadDialog({ content, bookingPath, submit, submitPending }: Prop
         </div>
       </div>
     </dialog>
-  );
-}
-
-function Group({
-  label,
-  htmlFor,
-  error,
-  children,
-}: {
-  label: string;
-  htmlFor?: string;
-  error?: string;
-  children: ReactNode;
-}) {
-  return (
-    <div className="flex flex-col gap-2">
-      {htmlFor ? (
-        <label htmlFor={htmlFor} className="text-base">
-          {label}
-        </label>
-      ) : (
-        <p className="text-base">{label}</p>
-      )}
-      {children}
-      {error ? (
-        <p role="alert" className="text-sm text-accent">
-          {error}
-        </p>
-      ) : null}
-    </div>
   );
 }

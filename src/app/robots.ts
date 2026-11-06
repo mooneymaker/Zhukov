@@ -5,7 +5,7 @@ export default function robots(): MetadataRoute.Robots {
   if (!allowIndexing) return { rules: { userAgent: "*", disallow: "/" } };
 
   return {
-    rules: { userAgent: "*", allow: "/", disallow: "/thanks" },
+    rules: { userAgent: "*", allow: "/" },
     sitemap: `${siteUrl}/sitemap.xml`,
   };
 }
