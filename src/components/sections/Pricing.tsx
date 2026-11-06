@@ -55,7 +55,7 @@ export async function Pricing() {
               <div className="flex flex-col gap-6 p-4 md:gap-8 md:p-8">
                 <h3 className="text-h3 leading-none font-semibold">{plan.title}</h3>
                 <p className="text-h5 font-semibold">{plan.price}</p>
-                <div className="text-lg">
+                <div className="flex flex-col gap-3 text-lg">
                   {plan.paragraphs.map((paragraph) => (
                     <p key={paragraph}>{paragraph}</p>
                   ))}

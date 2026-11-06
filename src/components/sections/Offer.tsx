@@ -14,7 +14,7 @@ export async function Offer() {
   return (
     <section className="relative isolate overflow-hidden bg-accent text-ink">
       <GradientBackdrop />
-      <div className="mx-auto grid max-w-site gap-12 px-gutter pt-section pb-gutter lg:min-h-svh lg:grid-cols-[1fr_49.44%] lg:gap-0">
+      <div className="mx-auto grid max-w-site gap-12 px-gutter pt-section pb-gutter lg:min-h-svh lg:grid-cols-[1fr_49.44%] lg:gap-x-8 lg:gap-y-0">
         <InView className="flex flex-col gap-10 lg:justify-between">
           <h2 className="text-display font-medium lg:max-w-[10.6em]">
             <RevealWords text={offer.heading} />
@@ -26,7 +26,7 @@ export async function Offer() {
           >
             <div className="flex flex-col gap-4 p-4 md:p-6">
               <h3 className="text-h4 font-semibold">{offer.card.title}</h3>
-              <div className="text-base">
+              <div className="flex flex-col gap-3 text-base">
                 {offer.card.paragraphs.map((paragraph) => (
                   <p key={paragraph}>{paragraph}</p>
                 ))}
