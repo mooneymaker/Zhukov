@@ -19,6 +19,12 @@ export type LeadState = {
   sent?: boolean;
 };
 
+/** Стан другої, необов'язкової форми: подробиці до заявки */
+export type DetailsState = {
+  error?: string;
+  sent?: boolean;
+};
+
 const LIMITS: Record<keyof LeadValues, number> = {
   name: 120,
   contact: 120,
@@ -42,6 +48,13 @@ export function validateLead(
   if (!values.name) errors.name = messages.name;
   if (!values.contact) errors.contact = messages.contact;
   return errors;
+}
+
+/** Другий лист Артуру: подробиці до вже надісланої заявки */
+export function formatLeadDetails(values: LeadValues, details: string): string {
+  return ["Подробиці до заявки", "", `Ім'я: ${values.name}`, `Telegram: ${values.contact}`, "", details]
+    .join("\n")
+    .slice(0, 4000);
 }
 
 /** Текст повідомлення, яке отримує Артур */

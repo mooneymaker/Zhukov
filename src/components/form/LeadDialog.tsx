@@ -1,12 +1,13 @@
 "use client";
 
 import { useActionState, useEffect, useId, useRef, useState, type ReactNode } from "react";
-import { submitLead } from "@/app/actions/lead";
+import { submitLead, submitLeadDetails } from "@/app/actions/lead";
 import type { LeadForm } from "@/content/form";
-import type { LeadState } from "@/lib/lead";
+import type { DetailsState, LeadState } from "@/lib/lead";
 import { BookingEmbed } from "./BookingEmbed";
 
 const INITIAL: LeadState = { errors: {}, values: null };
+const INITIAL_DETAILS: DetailsState = {};
 const FIELD =
   "w-full rounded-sm bg-field px-6 text-base text-page placeholder:text-page/70 transition-[background-color] duration-300 hover:bg-[#525352]";
 
@@ -17,16 +18,27 @@ type Props = {
   /** Кнопка відправки у двох станах: звичайна і «надсилаю» */
   submit: ReactNode;
   submitPending: ReactNode;
+  /** Кнопка необов'язкових подробиць у тих самих двох станах */
+  detailsSubmit: ReactNode;
+  detailsPending: ReactNode;
 };
 
 /**
  * Коротка заявка у спливному вікні. Стоїть на сторінці один раз і відкривається
  * кліком по будь-якому елементу з атрибутом data-lead-open (його ставить
  * SplitButton). Значення атрибута приходить разом із заявкою як назва кнопки.
- * Календар необов'язковий: його можна відкрити замість заявки або після неї.
+ * Після заявки можна дописати подробиці. Календар необов'язковий: його можна
+ * відкрити замість заявки або після неї.
  * На телефоні вікно виїжджає знизу аркушем.
  */
-export function LeadDialog({ content, bookingPath, submit, submitPending }: Props) {
+export function LeadDialog({
+  content,
+  bookingPath,
+  submit,
+  submitPending,
+  detailsSubmit,
+  detailsPending,
+}: Props) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const openedAt = useRef(0);
@@ -34,6 +46,7 @@ export function LeadDialog({ content, bookingPath, submit, submitPending }: Prop
   const [source, setSource] = useState("");
   const [calendar, setCalendar] = useState(false);
   const [state, action, pending] = useActionState(submitLead, INITIAL);
+  const [details, detailsAction, detailsSending] = useActionState(submitLeadDetails, INITIAL_DETAILS);
   const id = useId();
   const { errors, values, sent } = state;
 
@@ -63,7 +76,7 @@ export function LeadDialog({ content, bookingPath, submit, submitPending }: Prop
 
   const close = () => dialogRef.current?.close();
 
-  const heading = calendar ? content.calendar : sent ? content.sent : content;
+  const heading = calendar ? content.calendar : sent ? content.sent : { title: content.title, text: "" };
   const calendarButton = (
     <button
       type="button"
@@ -98,13 +111,36 @@ export function LeadDialog({ content, bookingPath, submit, submitPending }: Prop
             <h2 id={`${id}-title`} className="text-h4 leading-none font-semibold">
               {heading.title}
             </h2>
-            <p className="text-base">{heading.text}</p>
+            {heading.text ? <p className="text-base">{heading.text}</p> : null}
           </div>
 
           {calendar ? (
             <BookingEmbed path={bookingPath} />
           ) : sent ? (
-            calendarButton
+            <>
+              {details.sent ? (
+                <p className="p-4 text-base md:px-8">{content.details.sentText}</p>
+              ) : (
+                <form action={detailsAction} noValidate className="flex flex-col gap-2">
+                  <div className="p-4 md:px-8">
+                    <Group label={content.details.label} htmlFor={`${id}-details`} error={details.error}>
+                      <textarea
+                        id={`${id}-details`}
+                        name="details"
+                        placeholder={content.details.placeholder}
+                        aria-invalid={Boolean(details.error)}
+                        className={`${FIELD} h-32 resize-none py-5`}
+                      />
+                    </Group>
+                  </div>
+                  <input type="hidden" name="name" value={values?.name ?? ""} />
+                  <input type="hidden" name="contact" value={values?.contact ?? ""} />
+                  <input name="website" tabIndex={-1} autoComplete="off" aria-hidden className="absolute size-px opacity-0" />
+                  {detailsSending ? detailsPending : detailsSubmit}
+                </form>
+              )}
+              {calendarButton}
+            </>
           ) : (
             <>
               <form
@@ -140,6 +176,8 @@ export function LeadDialog({ content, bookingPath, submit, submitPending }: Prop
                       className={`${FIELD} h-16`}
                     />
                   </Group>
+
+                  <p className="text-base">{content.text}</p>
 
                   {errors.form ? (
                     <p role="alert" className="text-base text-accent">

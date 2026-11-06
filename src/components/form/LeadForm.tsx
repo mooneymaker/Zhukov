@@ -21,6 +21,16 @@ export async function LeadForm() {
           {content.sendingLabel}
         </SplitButton>
       }
+      detailsSubmit={
+        <SplitButton variant="accent" type="submit">
+          {content.details.submitLabel}
+        </SplitButton>
+      }
+      detailsPending={
+        <SplitButton variant="accent" type="submit" disabled>
+          {content.details.sendingLabel}
+        </SplitButton>
+      }
     />
   );
 }
