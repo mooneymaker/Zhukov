@@ -63,6 +63,7 @@ export async function About() {
           src={portrait}
           alt={about.portraitAlt}
           sizes="(min-width: 75rem) 110svh, 100vw"
+          quality={90}
           className="size-full object-cover object-top"
         />
       </div>

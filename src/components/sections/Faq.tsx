@@ -24,6 +24,7 @@ export async function Faq() {
                 alt={faq.card.imageAlt}
                 fill
                 sizes="(min-width: 75rem) 25vw, (min-width: 48rem) 50vw, 100vw"
+                quality={90}
                 className="object-cover"
               />
             </div>

@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   partialPrefetching: true,
   images: {
     formats: ["image/avif", "image/webp"],
-    // 90 потрібна карті нормалей портрета: на 75 стиснення дає плями у світлі
+    // 90 для портретів: на них стиснення видно найбільше
     qualities: [75, 90],
   },
   turbopack: {
