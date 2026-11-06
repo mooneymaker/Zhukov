@@ -21,6 +21,9 @@ export async function Pricing() {
           <h2 className="text-display font-medium lg:max-w-[14.6em] lg:text-center">
             <RevealWords text={pricing.heading} />
           </h2>
+          <p className="mt-4 animate-rise text-lg lg:text-center" style={delay(300)}>
+            {pricing.hint}
+          </p>
         </InView>
 
         {/* На комп'ютері картки стоять по дві й ділять спільні ряди (subgrid):

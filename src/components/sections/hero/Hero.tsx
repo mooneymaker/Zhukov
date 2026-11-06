@@ -101,7 +101,7 @@ export async function Hero() {
               ...hero.stats,
               {
                 value: hero.experience.value,
-                label: `${hero.experience.label} ${hero.experience.text}`,
+                label: `${hero.experience.label}, ${hero.experience.text}`,
               },
             ].map((stat, index) => (
               <div
