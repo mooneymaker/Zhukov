@@ -8,6 +8,7 @@ import { Offer } from "@/components/sections/Offer";
 import { Pricing } from "@/components/sections/Pricing";
 import { Problem } from "@/components/sections/Problem";
 import { Process } from "@/components/sections/Process";
+import { StickyCta } from "@/components/sections/StickyCta";
 import { Ways } from "@/components/sections/Ways";
 import { StructuredData } from "@/components/seo/StructuredData";
 
@@ -24,6 +25,7 @@ export default function Home() {
       <Pricing />
       <Faq />
       <FinalCta />
+      <StickyCta />
       <LeadForm />
       <StructuredData />
     </main>

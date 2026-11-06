@@ -27,7 +27,7 @@ export async function Hero() {
   const [first, second] = hero.stats;
 
   return (
-    <section className="relative isolate overflow-hidden bg-accent text-ink">
+    <section data-cta-zone className="relative isolate overflow-hidden bg-accent text-ink">
       <GradientBackdrop />
 
       <div className="relative mx-auto flex max-w-site flex-col px-gutter py-gutter lg:h-svh lg:min-h-[42rem]">
