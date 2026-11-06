@@ -5,11 +5,13 @@ type Props = {
   /** Сірий підпис у правому верхньому куті. Можна не вказувати */
   hint?: string;
   buttonLabel: string;
+  /** Підпис джерела: приходить разом із заявкою */
+  source: string;
   className?: string;
 };
 
 /** Світла плашка із закликом і кнопкою, що відкриває вікно заявки. */
-export function LeadCard({ text, hint, buttonLabel, className }: Props) {
+export function LeadCard({ text, hint, buttonLabel, source, className }: Props) {
   return (
     <div className={`flex flex-col gap-2 rounded-md bg-page p-2 ${className ?? ""}`}>
       <div className="flex flex-col-reverse gap-3 p-4 md:flex-row md:items-start md:justify-between md:gap-6 md:p-6">
@@ -20,7 +22,7 @@ export function LeadCard({ text, hint, buttonLabel, className }: Props) {
           </p>
         ) : null}
       </div>
-      <SplitButton lead={buttonLabel}>{buttonLabel}</SplitButton>
+      <SplitButton lead={source}>{buttonLabel}</SplitButton>
     </div>
   );
 }

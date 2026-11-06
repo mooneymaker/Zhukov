@@ -135,7 +135,7 @@ export async function Hero() {
           className="relative z-10 animate-rise max-lg:order-4 max-lg:-mt-[30%] md:max-lg:-mt-[16%] lg:w-[clamp(28rem,38.07vw,45.6875rem)]"
           style={delay(AT.card)}
         >
-          <LeadCard text={hero.lead} hint={hero.ctaHint} buttonLabel={hero.ctaLabel} />
+          <LeadCard text={hero.lead} hint={hero.ctaHint} buttonLabel={hero.ctaLabel} source="Перший екран" />
         </div>
       </div>
     </section>

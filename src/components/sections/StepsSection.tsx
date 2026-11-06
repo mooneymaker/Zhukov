@@ -56,7 +56,7 @@ export function StepsSection({ heading, breakHeading = false, card, steps }: Pro
           </h2>
           {card ? (
             <div className="animate-rise lg:w-[29.75rem]" style={delay(350)}>
-              <LeadCard text={card.text} buttonLabel={card.buttonLabel} />
+              <LeadCard text={card.text} buttonLabel={card.buttonLabel} source="Три способи зростання" />
             </div>
           ) : null}
         </InView>

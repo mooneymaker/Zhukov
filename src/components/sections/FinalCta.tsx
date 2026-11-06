@@ -40,7 +40,7 @@ export async function FinalCta() {
             <RevealWords text={final.heading} />
           </h2>
           <div className="mt-8 animate-rise lg:mt-16" style={delay(350)}>
-            <LeadCard text={final.lead} hint={final.ctaHint} buttonLabel={final.ctaLabel} />
+            <LeadCard text={final.lead} hint={final.ctaHint} buttonLabel={final.ctaLabel} source="Фінал" />
           </div>
           <div
             className="mt-4 flex animate-rise items-center justify-between gap-6 rounded-md bg-ink/10 px-6 py-5 md:px-8 md:py-6 lg:mt-[1.375rem]"
