@@ -40,13 +40,35 @@ export function readLead(formData: FormData): LeadValues {
   return values;
 }
 
+const ASCENDING = "01234567890123456789";
+const DESCENDING = "98765432109876543210";
+
+/** Telegram-нік або посилання на нього: 5–32 символи, перший це літера */
+function isTelegram(value: string): boolean {
+  return /^(@|(https?:\/\/)?t\.me\/)?[a-z][a-z0-9_]{4,31}$/i.test(value);
+}
+
+/** Номер у форматі +380… або 0…: не випадковий набір цифр */
+function isPhone(value: string): boolean {
+  if (!/^\+?[\d\s()-]+$/.test(value)) return false;
+  const digits = value.replace(/\D/g, "");
+  const international = value.startsWith("+") && digits.length >= 10 && digits.length <= 15;
+  const ukrainian = /^(380|0)[1-9]\d{8}$/.test(digits);
+  if (!international && !ukrainian) return false;
+
+  // Номер без коду країни: 111111111, 123456789 і подібне не проходять
+  const local = digits.slice(-9);
+  return !/(\d)\1{5}/.test(local) && !ASCENDING.includes(local) && !DESCENDING.includes(local);
+}
+
 export function validateLead(
   values: LeadValues,
-  messages: Record<Exclude<LeadErrorKey, "form">, string>,
+  messages: Record<Exclude<LeadErrorKey, "form"> | "contactInvalid", string>,
 ): LeadErrors {
   const errors: LeadErrors = {};
   if (!values.name) errors.name = messages.name;
   if (!values.contact) errors.contact = messages.contact;
+  else if (!isTelegram(values.contact) && !isPhone(values.contact)) errors.contact = messages.contactInvalid;
   return errors;
 }
 

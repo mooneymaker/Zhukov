@@ -24,6 +24,8 @@ export type LeadForm = {
   errors: {
     name: string;
     contact: string;
+    /** У полі щось є, але це не нік і не номер */
+    contactInvalid: string;
     details: string;
     /** Заявку не вдалося надіслати з технічних причин */
     form: string;
@@ -57,6 +59,7 @@ export const form: LeadForm = {
   errors: {
     name: "Вкажіть, як до вас звертатися",
     contact: "Залиште Telegram або номер телефону",
+    contactInvalid: "Вкажіть нік, наприклад @nick, або номер, наприклад +380 67 123 45 67",
     details: "Напишіть хоча б кілька слів",
     form: "Не вдалося надіслати заявку. Спробуйте ще раз або напишіть мені в месенджер.",
   },
